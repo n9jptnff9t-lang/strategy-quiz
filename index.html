@@ -172,13 +172,6 @@ var _hmt = _hmt || [];
       </div>
       <div class="toggle" style="margin-top:14px">
         <div>
-          <div class="field-label" style="margin:0">按题号排序选项 · Keep options in order</div>
-          <div class="muted" style="font-size:12px">关闭后每次练习选项随机打乱</div>
-        </div>
-        <input type="checkbox" id="keepOrder" checked style="width:22px;height:22px">
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
           <div class="field-label" style="margin:0">显示中文翻译 · Show Chinese</div>
           <div class="muted" style="font-size:12px">未作答时始终仅英文；作答后开启则题干与选项显示中文，关闭则全程仅英文</div>
         </div>
@@ -201,15 +194,6 @@ var _hmt = _hmt || [];
           <div class="muted" style="font-size:12px">开启后所有题目直接显示答案（中英双语），用于浏览</div>
         </div>
         <div id="browseSwitch" class="switch browse-switch" title="直接出答案">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
-          <div class="field-label" style="margin:0">显示题目解析 · Show explanations</div>
-          <div class="muted" style="font-size:12px">开启后，答错时显示该题的简短解析（第6章起有）</div>
-        </div>
-        <div id="expSwitch" class="switch exp-switch" title="显示题目解析">
           <span class="sw-track"><span class="sw-knob"></span></span>
         </div>
       </div>
@@ -311,11 +295,9 @@ const DATA = [{"chapter": 1, "chapter_en": "What is Strategy?", "chapter_zh": "�
 // ----- state -----
 let chapters = new Set([6,7,8,9]);
 let orderMode = 'seq';
-let keepOrder = true;
 let showZh = loadShowZh();
 let skipDone = loadBool('sm_skipdone', false);
 let browseAns = loadBool('sm_browse', false);
-let showExp = loadBool('sm_showexp', true);
 let showOldCh = loadBool('sm_oldch', false);
 let doneAns = loadDone();
 let limit = 20;
@@ -378,13 +360,6 @@ function toggleBrowse(){
   browseAns = !browseAns; saveBool('sm_browse', browseAns); syncBrowseSwitch();
   if(!document.getElementById('quiz').classList.contains('hide')) renderQuestion();
 }
-function syncExpSwitch(){
-  document.querySelectorAll('.exp-switch').forEach(el=>el.classList.toggle('on', showExp));
-}
-function toggleShowExp(){
-  showExp = !showExp; saveBool('sm_showexp', showExp); syncExpSwitch();
-  if(!document.getElementById('quiz').classList.contains('hide')) renderQuestion();
-}
 function syncOldChSwitch(){
   document.querySelectorAll('.oldch-switch').forEach(el=>el.classList.toggle('on', showOldCh));
 }
@@ -395,7 +370,7 @@ function toggleOldCh(){
 }
 // 题目解析（答错时显示）
 function expHtml(q){
-  if(!showExp || !q.exp) return '';
+  if(!q.exp) return '';
   return '<div class="exp"><b>💡 解析 · Explanation</b><br>'+esc(q.exp)+'</div>';
 }
 function resetDone(){
@@ -555,7 +530,7 @@ function startQuiz(){
   const pool = DATA.filter(q=>chapters.has(q.chapter));
   const qs = buildSession(pool);
   if(qs.length===0){ alert('请至少选择一个章节 · Please select at least one chapter.'); return; }
-  session = qs.map(q=>keepOrder? q : ({...q, opts: shuffle(q.opts)}));
+  session = qs.map(q=>({...q, opts: shuffle(q.opts)}));
   idx=0; answers={};
   showView('quiz'); renderQuestion();
 }
@@ -654,7 +629,7 @@ function practiceWrong(){
   showView('quiz'); renderQuestion();
 }
 function exportProgress(){
-  const data = { sm_wrong: wrongBank, sm_showzh: showZh, sm_skipdone: skipDone, sm_browse: browseAns, sm_showexp: showExp, sm_oldch: showOldCh, sm_done: [...doneAns], sm_limit: limit };
+  const data = { sm_wrong: wrongBank, sm_showzh: showZh, sm_skipdone: skipDone, sm_browse: browseAns, sm_oldch: showOldCh, sm_done: [...doneAns], sm_limit: limit };
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -673,7 +648,6 @@ function importProgress(file){
         if(typeof data.sm_showzh==='boolean'){ showZh = data.sm_showzh; saveShowZh(); syncZhSwitches(); }
         if(typeof data.sm_skipdone==='boolean'){ skipDone = data.sm_skipdone; saveBool('sm_skipdone', skipDone); syncSkipDoneSwitch(); }
         if(typeof data.sm_browse==='boolean'){ browseAns = data.sm_browse; saveBool('sm_browse', browseAns); syncBrowseSwitch(); }
-        if(typeof data.sm_showexp==='boolean'){ showExp = data.sm_showexp; saveBool('sm_showexp', showExp); syncExpSwitch(); }
         if(typeof data.sm_oldch==='boolean'){ showOldCh = data.sm_oldch; saveBool('sm_oldch', showOldCh); syncOldChSwitch(); }
         if(Array.isArray(data.sm_done)){ doneAns = new Set(data.sm_done); saveDone(); }
         if(typeof data.sm_limit==='number'){ limit = data.sm_limit; document.getElementById('limit').value = limit; }
@@ -720,7 +694,6 @@ document.getElementById('exportBtn').onclick=exportProgress;
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
 document.getElementById('importFile').onchange=e=>{ if(e.target.files && e.target.files[0]) importProgress(e.target.files[0]); e.target.value=''; };
 document.getElementById('clearBtn').onclick=clearWrong;
-document.getElementById('keepOrder').onchange=function(){ keepOrder=this.checked; };
 document.getElementById('limit').onchange=function(){ limit=parseInt(this.value)||20; };
 document.getElementById('limit').value=limit;
 
@@ -728,13 +701,11 @@ renderChapters(); renderOrder(); renderWrongCount();
 document.querySelectorAll('.zh-switch').forEach(el=>{ el.onclick=toggleShowZh; });
 document.querySelectorAll('.skip-done-switch').forEach(el=>{ el.onclick=toggleSkipDone; });
 document.querySelectorAll('.browse-switch').forEach(el=>{ el.onclick=toggleBrowse; });
-document.querySelectorAll('.exp-switch').forEach(el=>{ el.onclick=toggleShowExp; });
 document.querySelectorAll('.oldch-switch').forEach(el=>{ el.onclick=toggleOldCh; });
 document.getElementById('resetDoneBtn').onclick=resetDone;
 syncZhSwitches();
 syncSkipDoneSwitch();
 syncBrowseSwitch();
-syncExpSwitch();
 syncOldChSwitch();
 showView('home');
 </script>
