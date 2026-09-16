@@ -27,6 +27,29 @@ var _hmt = _hmt || [];
     --bg:#f4f6fb; --card:#ffffff; --ink:#1d2433; --muted:#6b7385;
     --brand:#3d5afe; --brand2:#6c8cff; --ok:#1fae6a; --bad:#e0464f; --warn:#f0a13a;
     --line:#e5e9f2; --soft:#eef1f8;
+    --fs:1;
+    --brand-soft:#eef1ff; --hover:#f6f8ff; --track:#cdd3e0;
+    --ok-bg:#eafaf1; --ok-br:#bfe9d2; --bad-bg:#fdecee; --bad-br:#f6c4c9;
+    --detail:#33405a; --hr:#d8deea;
+    --exp-bg:#fff9ec; --exp-br:#f0b429; --exp-ink:#4a3c17; --exp-ink2:#8a6100;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f1218; --card:#171b24; --ink:#e8ecf4; --muted:#98a3b8;
+    --brand:#6c8cff; --brand2:#8aa2ff; --ok:#37c281; --bad:#f0606a; --warn:#f0a13a;
+    --line:#2a3140; --soft:#222836;
+    --brand-soft:#1e2740; --hover:#1d2432; --track:#3a4250;
+    --ok-bg:#123024; --ok-br:#1d4a37; --bad-bg:#3a1a1f; --bad-br:#5a2a31;
+    --detail:#cdd6e6; --hr:#2a3140;
+    --exp-bg:#2a2413; --exp-br:#c8901f; --exp-ink:#f0e2b8; --exp-ink2:#e0b95a;
+  }
+  html[data-theme="sepia"]{
+    --bg:#f1ead6; --card:#fdfbf3; --ink:#3a3323; --muted:#7c7259;
+    --brand:#3d5afe; --brand2:#6c8cff; --ok:#1f9d63; --bad:#cf4a52;
+    --line:#d8cda9; --soft:#ece4cb;
+    --brand-soft:#e4e8fb; --hover:#f6efdb; --track:#c7bb98;
+    --ok-bg:#e6f2e2; --ok-br:#c9e2c0; --bad-bg:#f6e4e0; --bad-br:#e6c6c0;
+    --detail:#4a4230; --hr:#ded3b5;
+    --exp-bg:#fbf3d9; --exp-br:#c9a02b; --exp-ink:#4a3c17; --exp-ink2:#8a6100;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -34,14 +57,14 @@ var _hmt = _hmt || [];
     background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.55}
   .wrap{max-width:820px;margin:0 auto;padding:22px 16px 60px}
   header{text-align:center;padding:14px 0 6px}
-  .brand{font-size:26px;font-weight:800;letter-spacing:.5px}
-  .brand .en{display:block;font-size:13px;font-weight:600;color:var(--brand);margin-top:2px;letter-spacing:1.5px}
-  .sub{color:var(--muted);font-size:13px;margin-top:6px}
+  .brand{font-size:calc(26px * var(--fs));font-weight:800;letter-spacing:.5px}
+  .brand .en{display:block;font-size:calc(13px * var(--fs));font-weight:600;color:var(--brand);margin-top:2px;letter-spacing:1.5px}
+  .sub{color:var(--muted);font-size:calc(13px * var(--fs));margin-top:6px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;
     box-shadow:0 8px 30px rgba(30,45,90,.06)}
   .card+.card{margin-top:16px}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;
-    font-weight:700;border-radius:12px;padding:13px 20px;font-size:15px;transition:.15s;background:var(--soft);color:var(--ink)}
+    font-weight:700;border-radius:12px;padding:13px 20px;font-size:calc(15px * var(--fs));transition:.15s;background:var(--soft);color:var(--ink)}
   .btn.primary{background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(61,90,254,.28)}
   .btn.primary:hover{background:#2f4bdb}
   .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
@@ -52,89 +75,100 @@ var _hmt = _hmt || [];
   .row{display:flex;flex-wrap:wrap;gap:12px}
   .foot.sticky{position:sticky;bottom:0;margin-top:16px;padding:12px 0 4px;background:var(--card);z-index:6;border-top:1px solid var(--line);box-shadow:0 -6px 16px rgba(30,45,90,.07)}
   .chapter-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--line);
-    border-radius:12px;background:#fff;cursor:pointer;user-select:none;font-size:14px;transition:.12s}
-  .chapter-chip.checked{border-color:var(--brand);background:#eef1ff;color:var(--brand);font-weight:700}
-  .chapter-chip .dot{width:16px;height:16px;border-radius:5px;border:2px solid #c3cbdd;display:grid;place-items:center;font-size:11px;color:#fff}
+    border-radius:12px;background:var(--card);cursor:pointer;user-select:none;font-size:calc(14px * var(--fs));transition:.12s}
+  .chapter-chip.checked{border-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:700}
+  .chapter-chip .dot{width:16px;height:16px;border-radius:5px;border:2px solid var(--track);display:grid;place-items:center;font-size:calc(11px * var(--fs));color:#fff}
   .chapter-chip.checked .dot{background:var(--brand);border-color:var(--brand)}
-  select, input[type=number]{padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;background:#fff;color:var(--ink)}
-  .field-label{font-size:13px;color:var(--muted);margin-bottom:6px;font-weight:600}
+  select, input[type=number]{padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:calc(15px * var(--fs));background:var(--card);color:var(--ink)}
+  .field-label{font-size:calc(13px * var(--fs));color:var(--muted);margin-bottom:6px;font-weight:600}
   .progress-wrap{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;margin:4px 0 6px}
   .progress{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;transition:width .25s}
-  .topline{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted)}
-  .pill{background:var(--brand);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700}
+  .topline{display:flex;justify-content:space-between;align-items:center;font-size:calc(13px * var(--fs));color:var(--muted)}
+  .pill{background:var(--brand);color:#fff;border-radius:999px;padding:3px 10px;font-size:calc(12px * var(--fs));font-weight:700}
   .pill.gray{background:var(--soft);color:var(--muted)}
   .qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 30px rgba(30,45,90,.06);
     animation:fade .25s ease}
   @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .q-en{font-size:19px;font-weight:700}
-  .q-zh{font-size:15px;color:var(--muted);margin-top:8px;padding-left:11px;border-left:3px solid var(--line)}
+  .q-en{font-size:calc(19px * var(--fs));font-weight:700}
+  .q-zh{font-size:calc(15px * var(--fs));color:var(--muted);margin-top:8px;padding-left:11px;border-left:3px solid var(--line)}
   .opts{margin-top:20px;display:grid;gap:12px}
   .opt{border:1.5px solid var(--line);border-radius:13px;padding:13px 15px;cursor:pointer;display:flex;gap:12px;
-    align-items:flex-start;transition:.13s;background:#fff}
-  .opt:hover{border-color:var(--brand2);background:#f6f8ff}
+    align-items:flex-start;transition:.13s;background:var(--card)}
+  .opt:hover{border-color:var(--brand2);background:var(--hover)}
   .opt .key{flex:0 0 30px;height:30px;width:30px;border-radius:8px;background:var(--soft);display:grid;place-items:center;
-    font-weight:800;font-size:14px}
+    font-weight:800;font-size:calc(14px * var(--fs))}
   .opt .txt{flex:1;min-width:0}
-  .opt .txt .en{font-size:15px}
-  .opt .txt .zh{font-size:13px;color:var(--muted);margin-top:2px}
-  .opt.correct{border-color:var(--ok);background:#eafaf1}
+  .opt .txt .en{font-size:calc(15px * var(--fs))}
+  .opt .txt .zh{font-size:calc(13px * var(--fs));color:var(--muted);margin-top:2px}
+  .opt.correct{border-color:var(--ok);background:var(--ok-bg)}
   .opt.correct .key{background:var(--ok);color:#fff}
-  .opt.wrong{border-color:var(--bad);background:#fdecee}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
   .opt.wrong .key{background:var(--bad);color:#fff}
   .opt.dim{opacity:.55}
   .opt.locked{cursor:default;pointer-events:none}
-  .feedback{margin-top:18px;border-radius:14px;padding:15px 16px;font-size:15px;display:none}
+  .feedback{margin-top:18px;border-radius:14px;padding:15px 16px;font-size:calc(15px * var(--fs));display:none}
   .feedback.show{display:block;animation:fade .2s ease}
-  .feedback.ok{background:#eafaf1;border:1px solid #bfe9d2}
-  .feedback.bad{background:#fdecee;border:1px solid #f6c4c9}
-  .feedback .title{font-weight:800;font-size:16px}
-  .feedback .detail{margin-top:6px;color:#33405a}
-  .feedback .hr{border-top:1px dashed #d8deea;margin:10px 0}
-  .exp{margin-top:10px;padding:9px 12px;background:#fff9ec;border-left:3px solid #f0b429;border-radius:8px;font-size:14px;color:#4a3c17;line-height:1.55}
-  .exp b{color:#8a6100}
+  .feedback.ok{background:var(--ok-bg);border:1px solid var(--ok-br)}
+  .feedback.bad{background:var(--bad-bg);border:1px solid var(--bad-br)}
+  .feedback .title{font-weight:800;font-size:calc(16px * var(--fs))}
+  .feedback .detail{margin-top:6px;color:var(--detail)}
+  .feedback .hr{border-top:1px dashed var(--hr);margin:10px 0}
+  .exp{margin-top:10px;padding:9px 12px;background:var(--exp-bg);border-left:3px solid var(--exp-br);border-radius:8px;font-size:calc(14px * var(--fs));color:var(--exp-ink);line-height:1.55}
+  .exp b{color:var(--exp-ink2)}
   .foot{margin-top:18px;display:flex;justify-content:space-between;align-items:center}
   .muted{color:var(--muted)}
   .center{text-align:center}
-  h2.lg{font-size:32px;margin:0}
+  h2.lg{font-size:calc(32px * var(--fs));margin:0}
   .score-ring{width:170px;height:170px;margin:16px auto;position:relative}
   .ring{width:170px;height:170px;transform:rotate(-90deg)}
   .ring circle{fill:none;stroke-width:13;stroke-linecap:round}
   .ring .track{stroke:var(--soft)}
   .ring .val{stroke:var(--brand);transition:stroke-dashoffset 1s ease}
   .score-num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-  .score-num .big{font-size:38px;font-weight:800}
+  .score-num .big{font-size:calc(38px * var(--fs));font-weight:800}
   .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
   .stat{background:var(--soft);border-radius:14px;padding:12px;text-align:center}
-  .stat .v{font-size:24px;font-weight:800}
-  .stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+  .stat .v{font-size:calc(24px * var(--fs));font-weight:800}
+  .stat .l{font-size:calc(12px * var(--fs));color:var(--muted);margin-top:2px}
   table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
-  th{color:var(--muted);font-weight:600;font-size:12px}
+  th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);font-size:calc(14px * var(--fs))}
+  th{color:var(--muted);font-weight:600;font-size:calc(12px * var(--fs))}
   .bar-cell{width:120px}
   .bar{height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
   .bar>span{display:block;height:100%;background:var(--ok);border-radius:999px}
-  .wrong-item{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:12px;background:#fff}
-  .wrong-item .qx{font-weight:700;font-size:15px}
-  .wrong-item .meta{font-size:12px;color:var(--muted);margin-top:3px}
-  .wrong-item .ansline{margin-top:8px;font-size:14px}
+  .wrong-item{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:12px;background:var(--card)}
+  .wrong-item .qx{font-weight:700;font-size:calc(15px * var(--fs))}
+  .wrong-item .meta{font-size:calc(12px * var(--fs));color:var(--muted);margin-top:3px}
+  .wrong-item .ansline{margin-top:8px;font-size:calc(14px * var(--fs))}
   .wrong-item .ansline b{color:var(--ok)}
-  .wrong-item .yourline{font-size:13px;color:var(--bad)}
+  .wrong-item .yourline{font-size:calc(13px * var(--fs));color:var(--bad)}
   .hide{display:none!important}
   .kv{display:flex;flex-direction:column;gap:6px}
   .toggle{display:flex;align-items:center;justify-content:space-between}
   .radio-group{display:flex;gap:10px;flex-wrap:wrap}
-  .radio-chip{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:14px;background:#fff}
-  .radio-chip.sel{border-color:var(--brand);color:var(--brand);font-weight:700;background:#eef1ff}
+  .radio-chip{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:calc(14px * var(--fs));background:var(--card)}
+  .radio-chip.sel{border-color:var(--brand);color:var(--brand);font-weight:700;background:var(--brand-soft)}
   .void{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .tag{font-size:12px;background:var(--soft);color:var(--muted);border-radius:999px;padding:3px 10px}
-  .lang-lbl{font-size:12px;color:var(--muted);margin:6px 0 2px;font-weight:700}
+  .tag{font-size:calc(12px * var(--fs));background:var(--soft);color:var(--muted);border-radius:999px;padding:3px 10px}
+  .lang-lbl{font-size:calc(12px * var(--fs));color:var(--muted);margin:6px 0 2px;font-weight:700}
   .switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;-webkit-user-select:none}
-  .switch .sw-text{font-size:12px;color:var(--muted);font-weight:600;white-space:nowrap}
-  .switch .sw-track{width:42px;height:23px;border-radius:999px;background:#cdd3e0;position:relative;transition:.18s}
+  .switch .sw-text{font-size:calc(12px * var(--fs));color:var(--muted);font-weight:600;white-space:nowrap}
+  .switch .sw-track{width:42px;height:23px;border-radius:999px;background:var(--track);position:relative;transition:.18s}
   .switch .sw-knob{position:absolute;top:2.5px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
   .switch.on .sw-track{background:var(--brand)}
   .switch.on .sw-knob{left:21px}
-  @media (max-width:520px){ .brand{font-size:22px} .stat-grid{grid-template-columns:repeat(3,1fr)} .wrap{padding:14px 12px 50px} }
+  @media (max-width:520px){ .brand{font-size:calc(22px * var(--fs))} .stat-grid{grid-template-columns:repeat(3,1fr)} .wrap{padding:14px 12px 50px} .topline .sw-text{display:none} }
+  .seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg>div{padding:7px 12px;font-size:calc(13px * var(--fs));cursor:pointer;color:var(--muted);background:var(--card)}
+  .seg>div+div{border-left:1.5px solid var(--line)}
+  .seg>div.sel{background:var(--brand-soft);color:var(--brand);font-weight:700}
+  .combo{position:fixed;left:50%;top:15%;transform:translateX(-50%) scale(.6);z-index:50;pointer-events:none;
+    background:linear-gradient(135deg,#ff8a00,#ff3d6e);color:#fff;font-weight:900;font-size:calc(24px * var(--fs));
+    padding:9px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(255,90,60,.45);opacity:0;transition:.18s;white-space:nowrap}
+  .combo.show{opacity:1;transform:translateX(-50%) scale(1)}
+  .star-btn{background:transparent;border:none;cursor:pointer;font-size:calc(22px * var(--fs));line-height:1;color:var(--muted);padding:0 4px}
+  .star-btn.on{color:#f5b301}
+  #qBody{position:relative}
 </style>
 </head>
 <body>
@@ -173,7 +207,7 @@ var _hmt = _hmt || [];
       <div class="toggle" style="margin-top:14px">
         <div>
           <div class="field-label" style="margin:0">显示中文翻译 · Show Chinese</div>
-          <div class="muted" style="font-size:12px">未作答时始终仅英文；作答后开启则题干与选项显示中文，关闭则全程仅英文</div>
+          <div class="muted" style="font-size:calc(12px * var(--fs))">开启后，作答后题干与选项显示中文；未作答时是否显示由下面「全程显示」决定</div>
         </div>
         <div id="zhSwitchHome" class="switch on zh-switch" title="显示/隐藏中文翻译">
           <span class="sw-track"><span class="sw-knob"></span></span>
@@ -181,64 +215,110 @@ var _hmt = _hmt || [];
       </div>
       <div class="toggle" style="margin-top:14px">
         <div>
-          <div class="field-label" style="margin:0">随机出题跳过做过的题 · Skip done in random</div>
-          <div class="muted" style="font-size:12px">做过的题不再被随机抽到</div>
+          <div class="field-label" style="margin:0">全程显示中文翻译 · Always show Chinese</div>
+          <div class="muted" style="font-size:calc(12px * var(--fs))">开启后，未作答时题干与选项也直接显示中文</div>
         </div>
-        <div id="skipDoneSwitch" class="switch skip-done-switch" title="跳过做过的题">
+        <div id="zhAllSwitch" class="switch zhall-switch" title="全程显示中文翻译">
           <span class="sw-track"><span class="sw-knob"></span></span>
         </div>
       </div>
       <div class="toggle" style="margin-top:14px">
         <div>
-          <div class="field-label" style="margin:0">直接显示全部答案（浏览模式）· Show all answers</div>
-          <div class="muted" style="font-size:12px">开启后所有题目直接显示答案（中英双语），用于浏览</div>
+          <div class="field-label" style="margin:0">随机出题跳过做过的题 · Skip done in random</div>
+          <div class="muted" style="font-size:calc(12px * var(--fs))">做过的题不再被随机抽到</div>
         </div>
-        <div id="browseSwitch" class="switch browse-switch" title="直接出答案">
+        <div id="skipDoneSwitch" class="switch skip-done-switch" title="跳过做过的题">
           <span class="sw-track"><span class="sw-knob"></span></span>
         </div>
       </div>
       <div class="center" style="margin-top:8px">
-        <button class="btn ghost" id="resetDoneBtn" style="font-size:12px;padding:7px 14px;color:var(--muted)">重置“已做”记录 · Reset done</button>
+        <button class="btn ghost" id="resetDoneBtn" style="font-size:calc(12px * var(--fs));padding:7px 14px;color:var(--muted)">重置“已做”记录 · Reset done</button>
       </div>
+      <div class="toggle" style="margin-top:14px">
+        <div><div class="field-label" style="margin:0">主题 · Theme</div></div>
+        <div class="seg" id="themeSeg">
+          <div data-v="light" class="sel">浅色</div>
+          <div data-v="sepia">护眼</div>
+          <div data-v="dark">深色</div>
+        </div>
+      </div>
+      <div class="toggle" style="margin-top:14px">
+        <div><div class="field-label" style="margin:0">字号 · Text size</div></div>
+        <div class="seg" id="fsSeg">
+          <div data-v="0.9">小</div>
+          <div data-v="1" class="sel">中</div>
+          <div data-v="1.15">大</div>
+          <div data-v="1.3">特大</div>
+        </div>
+      </div>
+      <div class="toggle" style="margin-top:14px">
+        <div>
+          <div class="field-label" style="margin:0">音效 · Sound</div>
+          <div class="muted" style="font-size:calc(12px * var(--fs))">答对/答错提示音与连击</div>
+        </div>
+        <div id="soundSwitch" class="switch on sound-switch" title="音效">
+          <span class="sw-track"><span class="sw-knob"></span></span>
+        </div>
+      </div>
+      <div class="center" id="resumeBox" style="margin-top:14px"></div>
       <div class="foot" style="margin-top:18px;justify-content:center;gap:12px">
         <button class="btn primary" id="startBtn" style="flex:1;max-width:280px">开始刷题 · Start Quiz</button>
       </div>
-      <div class="center muted" style="margin-top:14px;font-size:12px">错题本自动保存于你自己的设备，各人互不影响 · 把链接发给同学即可 · Each person's mistakes are stored on their own device.</div>
+      <div class="center muted" style="margin-top:14px;font-size:calc(12px * var(--fs))">错题本自动保存于你自己的设备，各人互不影响 · 把链接发给同学即可 · Each person's mistakes are stored on their own device.</div>
     </div>
 
     <div class="card">
       <div class="row" style="justify-content:space-between;align-items:center">
         <div>
           <div class="field-label" style="margin:0">错题本 · Review Mistakes</div>
-          <div class="muted" id="wrongCount" style="font-size:13px;margin-top:2px">0 道错题</div>
+          <div class="muted" id="wrongCount" style="font-size:calc(13px * var(--fs));margin-top:2px">0 道错题</div>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="btn ghost" id="viewWrongBtn" style="font-size:13px">列表 · List</button>
-          <button class="btn ghost" id="wrongBtn" style="font-size:14px">错题重练 · Practice</button>
+          <button class="btn ghost" id="viewWrongBtn" style="font-size:calc(13px * var(--fs))">列表 · List</button>
+          <button class="btn ghost" id="wrongBtn" style="font-size:calc(14px * var(--fs))">错题重练 · Practice</button>
         </div>
       </div>
       <div id="wrongListBox" class="hide" style="margin-top:12px"></div>
       <div class="row" style="margin-top:12px;gap:10px">
-        <button class="btn ghost" id="exportBtn" style="font-size:13px;flex:1">导出进度 · Export</button>
-        <button class="btn ghost" id="importBtn" style="font-size:13px;flex:1">导入进度 · Import</button>
-        <button class="btn ghost" id="clearBtn" style="font-size:13px;flex:1;color:var(--bad)">清除错题 · Clear</button>
+        <button class="btn ghost" id="exportBtn" style="font-size:calc(13px * var(--fs));flex:1">导出进度 · Export</button>
+        <button class="btn ghost" id="importBtn" style="font-size:calc(13px * var(--fs));flex:1">导入进度 · Import</button>
+        <button class="btn ghost" id="clearBtn" style="font-size:calc(13px * var(--fs));flex:1;color:var(--bad)">清除错题 · Clear</button>
       </div>
       <input type="file" id="importFile" accept="application/json,.json" style="display:none">
-      <div class="muted" style="font-size:12px;margin-top:10px">错题本保存在你自己的设备上，互不影响 · Your mistakes are saved locally on your own device.</div>
+      <div class="muted" style="font-size:calc(12px * var(--fs));margin-top:10px">错题本保存在你自己的设备上，互不影响 · Your mistakes are saved locally on your own device.</div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between;align-items:center">
+        <div>
+          <div class="field-label" style="margin:0">收藏夹 · Starred</div>
+          <div class="muted" id="starCount" style="font-size:calc(13px * var(--fs));margin-top:2px">0 道收藏</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn ghost" id="viewStarBtn" style="font-size:calc(13px * var(--fs))">列表 · List</button>
+          <button class="btn ghost" id="starPracticeBtn" style="font-size:calc(14px * var(--fs))">练收藏 · Practice</button>
+        </div>
+      </div>
+      <div id="starListBox" class="hide" style="margin-top:12px"></div>
+      <div class="muted" style="font-size:calc(12px * var(--fs));margin-top:10px">答题时点右上角 ☆ 即可收藏题目，方便重点复习 · Tap ☆ while answering to star a question.</div>
     </div>
   </div>
 
   <!-- QUIZ -->
   <div id="quiz" class="hide">
+    <div id="comboBadge" class="combo">🔥 连击</div>
     <div class="topline">
       <div style="display:flex;gap:8px;align-items:center">
         <span id="qCounter" class="pill">1 / 20</span>
         <span id="chTag" class="pill gray">Ch 1</span>
         <span id="scoreLive" class="pill gray">答对 0</span>
       </div>
-      <div id="zhSwitch" class="switch on zh-switch" title="显示/隐藏中文翻译">
-        <span class="sw-text">中文翻译 · CN</span>
-        <span class="sw-track"><span class="sw-knob"></span></span>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button id="starBtn" class="star-btn" title="收藏本题 · Star">☆</button>
+        <div id="zhSwitch" class="switch on zh-switch" title="显示/隐藏中文翻译">
+          <span class="sw-text">中文翻译 · CN</span>
+          <span class="sw-track"><span class="sw-knob"></span></span>
+        </div>
       </div>
     </div>
     <div class="progress-wrap"><div class="progress" id="pbar"></div></div>
@@ -261,13 +341,14 @@ var _hmt = _hmt || [];
           <circle class="track" cx="85" cy="85" r="72"></circle>
           <circle class="val" id="ringV" cx="85" cy="85" r="72"></circle>
         </svg>
-        <div class="score-num"><div><div class="big" id="pct">0%</div><div class="muted" style="font-size:12px">正确率 · Accuracy</div></div></div>
+        <div class="score-num"><div><div class="big" id="pct">0%</div><div class="muted" style="font-size:calc(12px * var(--fs))">正确率 · Accuracy</div></div></div>
       </div>
       <div class="stat-grid">
         <div class="stat"><div class="v" style="color:var(--ok)">0</div><div class="l">答对 Correct</div></div>
         <div class="stat"><div class="v" style="color:var(--bad)">0</div><div class="l">答错 Wrong</div></div>
         <div class="stat"><div class="v">0</div><div class="l">总数 Total</div></div>
       </div>
+      <div class="muted" id="resCombo" style="margin-top:12px;font-weight:700"></div>
       <div style="margin-top:20px">
         <div class="btn primary" id="restartBtn">再来一轮 · Retry</div>
       </div>
@@ -297,8 +378,13 @@ let chapters = new Set([6,7,8,9,10]);
 let orderMode = 'seq';
 let showZh = loadShowZh();
 let skipDone = loadBool('sm_skipdone', false);
-let browseAns = loadBool('sm_browse', false);
+let showAlwaysZh = loadBool('sm_zhall', false);
 let showOldCh = loadBool('sm_oldch', false);
+let soundOn = loadBool('sm_sound', true);
+let theme = (function(){ try{ return localStorage.getItem('sm_theme') || 'light'; }catch(e){ return 'light'; } })();
+let fsScale = (function(){ try{ return parseFloat(localStorage.getItem('sm_fs')) || 1; }catch(e){ return 1; } })();
+let starSet = loadSet('sm_star');
+let combo = 0, maxCombo = 0;
 let doneAns = loadDone();
 let limit = 20;
 let session = [];      // array of question objects
@@ -353,11 +439,13 @@ function syncSkipDoneSwitch(){
 function toggleSkipDone(){
   skipDone = !skipDone; saveBool('sm_skipdone', skipDone); syncSkipDoneSwitch();
 }
-function syncBrowseSwitch(){
-  document.querySelectorAll('.browse-switch').forEach(el=>el.classList.toggle('on', browseAns));
+// 全程显示中文翻译
+function zhOn(){ return showZh || showAlwaysZh; }
+function syncZhallSwitch(){
+  document.querySelectorAll('.zhall-switch').forEach(el=>el.classList.toggle('on', showAlwaysZh));
 }
-function toggleBrowse(){
-  browseAns = !browseAns; saveBool('sm_browse', browseAns); syncBrowseSwitch();
+function toggleShowAlwaysZh(){
+  showAlwaysZh = !showAlwaysZh; saveBool('sm_zhall', showAlwaysZh); syncZhallSwitch();
   if(!document.getElementById('quiz').classList.contains('hide')) renderQuestion();
 }
 function syncOldChSwitch(){
@@ -372,6 +460,115 @@ function toggleOldCh(){
 function expHtml(q){
   if(!q.exp) return '';
   return '<div class="exp"><b>💡 解析 · Explanation</b><br>'+esc(q.exp)+'</div>';
+}
+function loadSet(key){ try{ const a=JSON.parse(localStorage.getItem(key)||'[]'); return new Set(Array.isArray(a)?a:[]); }catch(e){ return new Set(); } }
+function saveSet(key,set){ try{ localStorage.setItem(key, JSON.stringify([...set])); }catch(e){} }
+
+// ----- 主题 / 字号 / 音效 -----
+function syncThemeSeg(){ document.querySelectorAll('#themeSeg>div').forEach(el=>el.classList.toggle('sel', el.dataset.v===theme)); }
+function applyTheme(t){ theme=t; document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem('sm_theme', t); }catch(e){} syncThemeSeg(); }
+function syncFsSeg(){ document.querySelectorAll('#fsSeg>div').forEach(el=>el.classList.toggle('sel', Math.abs(parseFloat(el.dataset.v)-fsScale)<0.001)); }
+function applyFs(v){ fsScale=v; document.documentElement.style.setProperty('--fs', String(v)); try{ localStorage.setItem('sm_fs', String(v)); }catch(e){} syncFsSeg(); }
+function syncSoundSwitch(){ document.querySelectorAll('.sound-switch').forEach(el=>el.classList.toggle('on', soundOn)); }
+function toggleSound(){ soundOn=!soundOn; saveBool('sm_sound', soundOn); syncSoundSwitch(); if(soundOn) playCorrect(1); }
+
+let audioCtx=null;
+function ensureAudio(){
+  try{
+    if(!audioCtx){ const AC = window.AudioContext || window.webkitAudioContext; if(!AC) return; audioCtx = new AC(); }
+    if(audioCtx.state==='suspended') audioCtx.resume();
+  }catch(e){}
+}
+function tone(freq, dur, type, vol, delay){
+  if(!soundOn) return;
+  ensureAudio(); if(!audioCtx) return;
+  try{
+    const t0 = audioCtx.currentTime + (delay||0);
+    const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+    o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t0);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol||0.16, t0+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0+dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(t0); o.stop(t0+dur+0.03);
+  }catch(e){}
+}
+function playCorrect(n){ const step=Math.min(n||1,8); const base=620+step*70; tone(base,0.11,'sine',0.16,0); tone(base*1.5,0.13,'sine',0.12,0.085); }
+function playWrong(){ tone(220,0.17,'sawtooth',0.12,0); tone(150,0.22,'sawtooth',0.10,0.11); }
+function showCombo(n){
+  const b=document.getElementById('comboBadge'); if(!b) return;
+  b.textContent='🔥 连击 x'+n; b.classList.add('show');
+  clearTimeout(b._t); b._t=setTimeout(()=>b.classList.remove('show'),900);
+}
+
+// ----- 收藏 -----
+function syncStarBtn(){
+  const b=document.getElementById('starBtn'); if(!b) return;
+  const q=session[idx];
+  if(!q){ b.classList.add('hide'); return; }
+  const on=starSet.has(qid(q));
+  b.classList.toggle('on', on); b.textContent = on?'★':'☆';
+}
+function toggleStar(){
+  const q=session[idx]; if(!q) return;
+  const id=qid(q);
+  if(starSet.has(id)) starSet.delete(id); else starSet.add(id);
+  saveSet('sm_star', starSet); syncStarBtn(); renderStarCount();
+}
+function renderStarCount(){
+  const el=document.getElementById('starCount');
+  if(el) el.textContent = starSet.size+' 道收藏 · '+starSet.size+' starred';
+  const box=document.getElementById('starListBox');
+  if(box && !box.classList.contains('hide')) renderStarList();
+}
+function practiceStarred(){
+  const pool=[...starSet].map(id=>findQ(id)).filter(Boolean);
+  if(!pool.length){ alert('收藏夹为空 · Nothing starred yet.'); return; }
+  limit=pool.length; session=pool.map(shuffledQuestion); idx=0; answers={}; combo=0; maxCombo=0;
+  saveSession(); showView('quiz'); renderQuestion();
+}
+function renderStarList(){
+  const box=document.getElementById('starListBox'); if(!box) return;
+  const ids=[...starSet];
+  if(ids.length===0){ box.innerHTML='<div class="muted" style="padding:4px 0">暂无收藏 · Nothing starred yet.</div>'; return; }
+  box.innerHTML='<div class="muted" style="margin-bottom:8px;font-size:calc(12px * var(--fs))">共 '+ids.length+' 道 · 点 ★ 移出 · Click ★ to remove</div>';
+  ids.forEach(id=>{
+    const q=findQ(id); if(!q) return;
+    const correct=q.opts.find(o=>o.k===q.ans);
+    const d=document.createElement('div'); d.className='wrong-item';
+    d.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px">'
+      +'<div style="flex:1;min-width:0"><div class="meta">Ch '+q.chapter+' · Q'+q.n+'</div>'
+      +'<div class="qx">'+esc(q.q_en)+'</div>'
+      +(zhOn()?'<div class="zh" style="color:var(--muted);font-size:calc(13px * var(--fs))">'+esc(q.q_zh)+'</div>':'')
+      +'<div class="ansline">✅ '+(zhOn()?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'. '+esc(optionSplit(correct.t).en)+'</b></div>'
+      +'</div>'
+      +'<button class="btn ghost" data-unstar="'+id+'" style="font-size:calc(12px * var(--fs));padding:6px 10px;flex:0 0 auto;color:#f5b301">★</button></div>';
+    d.querySelector('[data-unstar]').onclick=()=>{ starSet.delete(id); saveSet('sm_star', starSet); renderStarCount(); };
+    box.appendChild(d);
+  });
+}
+
+// ----- 断点续练 -----
+function saveSession(){
+  try{
+    if(!session.length) return;
+    localStorage.setItem('sm_session', JSON.stringify({ items: session, idx: idx, answers: answers, ts: Date.now() }));
+  }catch(e){}
+}
+function loadSaved(){ try{ return JSON.parse(localStorage.getItem('sm_session')||'null'); }catch(e){ return null; } }
+function clearSession(){ try{ localStorage.removeItem('sm_session'); }catch(e){} renderResumeBox(); }
+function resumeSession(){
+  const s=loadSaved(); if(!s||!s.items||!s.items.length) return;
+  session=s.items; idx=Math.min(s.idx||0, session.length-1); answers=s.answers||{}; combo=0; maxCombo=0;
+  showView('quiz'); renderQuestion();
+}
+function renderResumeBox(){
+  const box=document.getElementById('resumeBox'); if(!box) return;
+  const s=loadSaved();
+  if(s && s.items && s.items.length){
+    box.innerHTML='<button class="btn primary" id="resumeBtn" style="width:100%;max-width:320px">▶ 继续上次练习 · Resume（第 '+((s.idx||0)+1)+' / '+s.items.length+' 题）</button>';
+    const rb=document.getElementById('resumeBtn'); if(rb) rb.onclick=resumeSession;
+  } else { box.innerHTML=''; }
 }
 function resetDone(){
   if(confirm('确定重置“已做”记录吗？之后随机模式会重新包含这些题目 · Reset the list of done questions?')){
@@ -434,7 +631,7 @@ function renderOptions(opts, answerKey, chosen){
   const container=document.createElement('div');
   container.className='opts';
   const locked = chosen!=null;
-  const revealed = browseAns || (locked && showZh);
+  const revealed = showAlwaysZh || (locked && showZh);
   opts.forEach(o=>{
     const t=optionSplit(o.t);
     const d=document.createElement('div');
@@ -456,9 +653,12 @@ function select(key){
   answers[qid(q)]=key;
   doneAns.add(qid(q)); saveDone();
   const correct = key===q.ans;
+  if(correct){ combo++; if(combo>maxCombo) maxCombo=combo; if(combo>=2) showCombo(combo); playCorrect(combo); }
+  else { combo=0; playWrong(); }
   renderQuestion();
   showFeedback(q, key, correct);
   if(!correct){ wrongBank[qid(q)]=q; saveWrong(); }   // 只增不删：做对仍保留，可反复练习
+  saveSession();
   const nb=document.getElementById('nextBtn');
   nb.disabled=false;
   document.getElementById('nextBtn').innerHTML = (idx===session.length-1)?'查看结果 · Result':'下一题 · Next';
@@ -469,14 +669,14 @@ function showFeedback(q,key,correct){
   let html='';
   if(correct){
     f.className='feedback show ok';
-    html='<div class="title">'+(showZh?'✅ 回答正确！ Correct!':'✅ Correct!')+'</div>'
-      +'<div class="detail">'+(showZh?'你选择了 · You chose: ':'You chose: ')+'<b>'+key+'</b></div>'
-      +'<div class="detail">'+(showZh?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'</b></div>';
+    html='<div class="title">'+(zhOn()?'✅ 回答正确！ Correct!':'✅ Correct!')+'</div>'
+      +'<div class="detail">'+(zhOn()?'你选择了 · You chose: ':'You chose: ')+'<b>'+key+'</b></div>'
+      +'<div class="detail">'+(zhOn()?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'</b></div>';
   } else {
     f.className='feedback show bad';
-    html='<div class="title">'+(showZh?'❌ 回答错误 · Not quite.':'❌ Not quite.')+'</div>'
-      +'<div class="detail">'+(showZh?'你选择了 · You chose: ':'You chose: ')+'<b>'+key+'</b></div>'
-      +'<div class="detail">'+(showZh?'正确答案 · Correct answer: ':'Correct answer: ')+'<span style="color:var(--ok);font-weight:800">'+q.ans+'</span></div>'
+    html='<div class="title">'+(zhOn()?'❌ 回答错误 · Not quite.':'❌ Not quite.')+'</div>'
+      +'<div class="detail">'+(zhOn()?'你选择了 · You chose: ':'You chose: ')+'<b>'+key+'</b></div>'
+      +'<div class="detail">'+(zhOn()?'正确答案 · Correct answer: ':'Correct answer: ')+'<span style="color:var(--ok);font-weight:800">'+q.ans+'</span></div>'
       +expHtml(q);
   }
   f.innerHTML=html;
@@ -484,29 +684,10 @@ function showFeedback(q,key,correct){
 
 function renderQuestion(){
   const q=session[idx];
+  syncStarBtn();
   const body=document.getElementById('qBody');
-  if(browseAns){
-    // 浏览答案模式：题目与四个选项直接双语显示，正确答案高亮
-    body.innerHTML='<div class="q-en">'+esc(q.q_en)+'</div><div class="q-zh">'+esc(q.q_zh)+'</div>';
-    body.appendChild(renderOptions(q.opts, q.ans, q.ans));
-    const opt=q.opts.find(o=>o.k===q.ans);
-    const t=optionSplit(opt.t);
-    const f=document.getElementById('feedback');
-    f.className='feedback show ok';
-    f.innerHTML='<div class="title">✅ 答案 · Answer: <b>'+q.ans+'. '+esc(t.en)+'</b></div>'
-      +(t.zh?'<div class="zh" style="margin-top:4px;color:var(--muted)">'+esc(t.zh)+'</div>':'')
-      +expHtml(q);
-    document.getElementById('qCounter').textContent=(idx+1)+' / '+session.length;
-    document.getElementById('chTag').textContent='Ch '+q.chapter;
-    document.getElementById('scoreLive').textContent='答案已显示 · Answer shown';
-    document.getElementById('pbar').style.width=((idx+1)/session.length*100)+'%';
-    const nb=document.getElementById('nextBtn');
-    nb.disabled=false;
-    nb.innerHTML=(idx===session.length-1)?'完成 · Done':'下一题 · Next';
-    return;
-  }
   const chosen=answers[qid(q)];
-  const revealed=(chosen!=null)&&showZh;
+  const revealed=showAlwaysZh || ((chosen!=null)&&showZh);
   body.innerHTML='<div class="q-en">'+esc(q.q_en)+'</div>'+(revealed?'<div class="q-zh">'+esc(q.q_zh)+'</div>':'');
   body.appendChild(renderOptions(q.opts, q.ans, chosen));
   // top line
@@ -528,8 +709,7 @@ function renderQuestion(){
 function findQ(id){ return DATA.find(q=>qid(q)===id); }
 
 function goNext(){
-  if(idx < session.length-1){ idx++; renderQuestion(); window.scrollTo(0,0); }
-  else if(browseAns){ showView('home'); renderWrongCount(); }
+  if(idx < session.length-1){ idx++; renderQuestion(); window.scrollTo(0,0); saveSession(); }
   else showResult();
 }
 
@@ -539,8 +719,9 @@ function startQuiz(){
   const qs = buildSession(pool);
   if(qs.length===0){ alert('请至少选择一个章节 · Please select at least one chapter.'); return; }
   session = qs.map(shuffledQuestion);
-  idx=0; answers={};
+  idx=0; answers={}; combo=0; maxCombo=0;
   showView('quiz'); renderQuestion();
+  saveSession();
 }
 
 // ----- result -----
@@ -559,6 +740,8 @@ function showResult(){
   document.querySelectorAll('#result .stat')[0].querySelector('.v').textContent=correct;
   document.querySelectorAll('#result .stat')[1].querySelector('.v').textContent=total-correct;
   document.querySelectorAll('#result .stat')[2].querySelector('.v').textContent=total;
+  const rc=document.getElementById('resCombo'); if(rc) rc.textContent = maxCombo>=2 ? ('🔥 最高连击 x'+maxCombo+' · Best combo') : '';
+  clearSession();
   // per chapter
   const m={};
   session.forEach(q=>{ if(!m[q.chapter]) m[q.chapter]={t:0,c:0}; m[q.chapter].t++; if(answers[qid(q)]===q.ans) m[q.chapter].c++; });
@@ -569,7 +752,7 @@ function showResult(){
     const r=m[ch]; const p=Math.round(r.c/r.t*100);
     const tr=document.createElement('tr');
     tr.innerHTML='<td>Ch '+ch+' · '+esc(chapterNames[ch])+'</td><td>'+r.t+'</td><td>'+r.c+'</td>'
-      +'<td class="bar-cell"><div class="bar"><span style="width:'+p+'%;background:'+(p>=80?'var(--ok)':(p>=60?'var(--warn)':'var(--bad)'))+'"></span></div> <span style="font-size:12px">'+p+'%</span></td>';
+      +'<td class="bar-cell"><div class="bar"><span style="width:'+p+'%;background:'+(p>=80?'var(--ok)':(p>=60?'var(--warn)':'var(--bad)'))+'"></span></div> <span style="font-size:calc(12px * var(--fs))">'+p+'%</span></td>';
     tbody.appendChild(tr);
   });
   // wrong list
@@ -585,9 +768,9 @@ function showResult(){
       d.className='wrong-item';
       d.innerHTML='<div class="meta">Ch '+q.chapter+' · Q'+q.n+'</div>'
         +'<div class="qx">'+esc(q.q_en)+'</div>'
-        +(showZh?'<div class="zh" style="color:var(--muted);font-size:13px">'+esc(q.q_zh)+'</div>':'')
-        +'<div class="ansline">✅ '+(showZh?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'. '+esc(ans.en)+'</b></div>'
-        +'<div class="yourline">❌ '+(showZh?'你的选择 · Your answer: ':'Your answer: ')+answers[qid(q)]+'. '+esc(yours.en)+'</div>'
+        +(zhOn()?'<div class="zh" style="color:var(--muted);font-size:calc(13px * var(--fs))">'+esc(q.q_zh)+'</div>':'')
+        +'<div class="ansline">✅ '+(zhOn()?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'. '+esc(ans.en)+'</b></div>'
+        +'<div class="yourline">❌ '+(zhOn()?'你的选择 · Your answer: ':'Your answer: ')+answers[qid(q)]+'. '+esc(yours.en)+'</div>'
         +expHtml(q);
       wl.appendChild(d);
     });
@@ -610,7 +793,7 @@ function renderWrongList(){
   const box=document.getElementById('wrongListBox');
   const ids=Object.keys(wrongBank);
   if(ids.length===0){ box.innerHTML='<div class="muted" style="padding:4px 0">暂无错题 · No mistakes yet.</div>'; return; }
-  box.innerHTML='<div class="muted" style="margin-bottom:8px;font-size:12px">共 '+ids.length+' 道 · 点 ✕ 移出（再次做错会自动加回）· Click ✕ to remove</div>';
+  box.innerHTML='<div class="muted" style="margin-bottom:8px;font-size:calc(12px * var(--fs))">共 '+ids.length+' 道 · 点 ✕ 移出（再次做错会自动加回）· Click ✕ to remove</div>';
   ids.forEach(id=>{
     const q=wrongBank[id];
     const ans=optionSplit(q.opts.find(o=>o.k===q.ans).t);
@@ -619,11 +802,11 @@ function renderWrongList(){
     d.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px">'
       +'<div style="flex:1;min-width:0"><div class="meta">Ch '+q.chapter+' · Q'+q.n+'</div>'
       +'<div class="qx">'+esc(q.q_en)+'</div>'
-      +(showZh?'<div class="zh" style="color:var(--muted);font-size:13px">'+esc(q.q_zh)+'</div>':'')
+      +(showZh?'<div class="zh" style="color:var(--muted);font-size:calc(13px * var(--fs))">'+esc(q.q_zh)+'</div>':'')
       +'<div class="ansline">✅ '+((showZh)?'正确答案 · Correct answer: ':'Correct answer: ')+'<b>'+q.ans+'. '+esc(ans.en)+'</b></div>'
       +expHtml(q)
       +'</div>'
-      +'<button class="btn ghost" data-remove="'+id+'" style="font-size:12px;padding:6px 10px;flex:0 0 auto;color:var(--bad)">✕</button></div>';
+      +'<button class="btn ghost" data-remove="'+id+'" style="font-size:calc(12px * var(--fs));padding:6px 10px;flex:0 0 auto;color:var(--bad)">✕</button></div>';
     d.querySelector('[data-remove]').onclick=()=>{
       delete wrongBank[id]; saveWrong(); renderWrongCount();
     };
@@ -634,10 +817,12 @@ function practiceWrong(){
   const pool=Object.values(wrongBank);
   if(pool.length===0){ alert('错题本为空 · No mistakes yet.'); return; }
   limit=pool.length; session=pool.map(shuffledQuestion); idx=0; answers={};
+  combo=0; maxCombo=0;
   showView('quiz'); renderQuestion();
+  saveSession();
 }
 function exportProgress(){
-  const data = { sm_wrong: wrongBank, sm_showzh: showZh, sm_skipdone: skipDone, sm_browse: browseAns, sm_oldch: showOldCh, sm_done: [...doneAns], sm_limit: limit };
+  const data = { sm_wrong: wrongBank, sm_showzh: showZh, sm_zhall: showAlwaysZh, sm_skipdone: skipDone, sm_oldch: showOldCh, sm_done: [...doneAns], sm_limit: limit };
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -655,7 +840,7 @@ function importProgress(file){
         wrongBank = data.sm_wrong; saveWrong();
         if(typeof data.sm_showzh==='boolean'){ showZh = data.sm_showzh; saveShowZh(); syncZhSwitches(); }
         if(typeof data.sm_skipdone==='boolean'){ skipDone = data.sm_skipdone; saveBool('sm_skipdone', skipDone); syncSkipDoneSwitch(); }
-        if(typeof data.sm_browse==='boolean'){ browseAns = data.sm_browse; saveBool('sm_browse', browseAns); syncBrowseSwitch(); }
+        if(typeof data.sm_zhall==='boolean'){ showAlwaysZh = data.sm_zhall; saveBool('sm_zhall', showAlwaysZh); syncZhallSwitch(); }
         if(typeof data.sm_oldch==='boolean'){ showOldCh = data.sm_oldch; saveBool('sm_oldch', showOldCh); syncOldChSwitch(); }
         if(Array.isArray(data.sm_done)){ doneAns = new Set(data.sm_done); saveDone(); }
         if(typeof data.sm_limit==='number'){ limit = data.sm_limit; document.getElementById('limit').value = limit; }
@@ -708,13 +893,29 @@ document.getElementById('limit').value=limit;
 renderChapters(); renderOrder(); renderWrongCount();
 document.querySelectorAll('.zh-switch').forEach(el=>{ el.onclick=toggleShowZh; });
 document.querySelectorAll('.skip-done-switch').forEach(el=>{ el.onclick=toggleSkipDone; });
-document.querySelectorAll('.browse-switch').forEach(el=>{ el.onclick=toggleBrowse; });
+document.querySelectorAll('.zhall-switch').forEach(el=>{ el.onclick=toggleShowAlwaysZh; });
 document.querySelectorAll('.oldch-switch').forEach(el=>{ el.onclick=toggleOldCh; });
+document.querySelectorAll('#themeSeg>div').forEach(el=>{ el.onclick=()=>applyTheme(el.dataset.v); });
+document.querySelectorAll('#fsSeg>div').forEach(el=>{ el.onclick=()=>applyFs(parseFloat(el.dataset.v)); });
+document.querySelectorAll('.sound-switch').forEach(el=>{ el.onclick=toggleSound; });
+document.getElementById('starBtn').onclick=toggleStar;
+document.getElementById('starPracticeBtn').onclick=practiceStarred;
+document.getElementById('viewStarBtn').onclick=()=>{
+  const box=document.getElementById('starListBox');
+  const show=box.classList.contains('hide');
+  box.classList.toggle('hide', !show);
+  if(show) renderStarList();
+};
 document.getElementById('resetDoneBtn').onclick=resetDone;
 syncZhSwitches();
 syncSkipDoneSwitch();
-syncBrowseSwitch();
+syncZhallSwitch();
 syncOldChSwitch();
+applyTheme(theme);
+applyFs(fsScale);
+syncSoundSwitch();
+renderStarCount();
+renderResumeBox();
 showView('home');
 </script>
 </body>
