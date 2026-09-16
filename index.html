@@ -404,6 +404,14 @@ function renderOrder(){
 }
 
 function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+// 打乱选项内容后，重新按顺序标为 A/B/C/D，并同步更新正确答案字母
+function shuffledQuestion(q){
+  const correctIdx = q.opts.findIndex(o=>o.k===q.ans);
+  const order = shuffle(q.opts.map((o,i)=>i));
+  const opts = order.map((oi,newIdx)=>({k:'ABCD'[newIdx], t:q.opts[oi].t}));
+  const ans = 'ABCD'[order.indexOf(correctIdx)];
+  return Object.assign({}, q, {opts:opts, ans:ans});
+}
 
 function buildSession(pool){
   let qs = pool.slice();
@@ -530,7 +538,7 @@ function startQuiz(){
   const pool = DATA.filter(q=>chapters.has(q.chapter));
   const qs = buildSession(pool);
   if(qs.length===0){ alert('请至少选择一个章节 · Please select at least one chapter.'); return; }
-  session = qs.map(q=>({...q, opts: shuffle(q.opts)}));
+  session = qs.map(shuffledQuestion);
   idx=0; answers={};
   showView('quiz'); renderQuestion();
 }
@@ -625,7 +633,7 @@ function renderWrongList(){
 function practiceWrong(){
   const pool=Object.values(wrongBank);
   if(pool.length===0){ alert('错题本为空 · No mistakes yet.'); return; }
-  limit=pool.length; session=pool.slice(); idx=0; answers={};
+  limit=pool.length; session=pool.map(shuffledQuestion); idx=0; answers={};
   showView('quiz'); renderQuestion();
 }
 function exportProgress(){
