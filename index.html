@@ -2,8 +2,9 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>战略管理 刷题小程序 · Strategic Management Quiz</title>
+<meta name="application-version" content="1.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>战略管理 · 版本 1.1 | Strategic Management Quiz</title>
 <!-- 百度统计 -->
 <script>
 var _hmt = _hmt || [];
@@ -23,359 +24,95 @@ var _hmt = _hmt || [];
     })(window, document, "clarity", "script", "yi9g1mxfhj");
 </script>
 <style>
-  :root{
-    --bg:#f4f6fb; --card:#ffffff; --ink:#1d2433; --muted:#6b7385;
-    --brand:#3d5afe; --brand2:#6c8cff; --ok:#1fae6a; --bad:#e0464f; --warn:#f0a13a;
-    --line:#e5e9f2; --soft:#eef1f8;
-    --fs:1;
-    --brand-soft:#eef1ff; --hover:#f6f8ff; --track:#cdd3e0;
-    --ok-bg:#eafaf1; --ok-br:#bfe9d2; --bad-bg:#fdecee; --bad-br:#f6c4c9;
-    --detail:#33405a; --hr:#d8deea;
-    --exp-bg:#fff9ec; --exp-br:#f0b429; --exp-ink:#4a3c17; --exp-ink2:#8a6100;
-  }
-  html[data-theme="dark"]{
-    --bg:#0f1218; --card:#171b24; --ink:#e8ecf4; --muted:#98a3b8;
-    --brand:#6c8cff; --brand2:#8aa2ff; --ok:#37c281; --bad:#f0606a; --warn:#f0a13a;
-    --line:#2a3140; --soft:#222836;
-    --brand-soft:#1e2740; --hover:#1d2432; --track:#3a4250;
-    --ok-bg:#123024; --ok-br:#1d4a37; --bad-bg:#3a1a1f; --bad-br:#5a2a31;
-    --detail:#cdd6e6; --hr:#2a3140;
-    --exp-bg:#2a2413; --exp-br:#c8901f; --exp-ink:#f0e2b8; --exp-ink2:#e0b95a;
-  }
-  html[data-theme="sepia"]{
-    --bg:#f1ead6; --card:#fdfbf3; --ink:#3a3323; --muted:#7c7259;
-    --brand:#3d5afe; --brand2:#6c8cff; --ok:#1f9d63; --bad:#cf4a52;
-    --line:#d8cda9; --soft:#ece4cb;
-    --brand-soft:#e4e8fb; --hover:#f6efdb; --track:#c7bb98;
-    --ok-bg:#e6f2e2; --ok-br:#c9e2c0; --bad-bg:#f6e4e0; --bad-br:#e6c6c0;
-    --detail:#4a4230; --hr:#ded3b5;
-    --exp-bg:#fbf3d9; --exp-br:#c9a02b; --exp-ink:#4a3c17; --exp-ink2:#8a6100;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,sans-serif;
-    background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.55}
-  .wrap{max-width:820px;margin:0 auto;padding:22px 16px 60px}
-  header{text-align:center;padding:14px 0 6px}
-  .brand{font-size:calc(26px * var(--fs));font-weight:800;letter-spacing:.5px}
-  .brand .en{display:block;font-size:calc(13px * var(--fs));font-weight:600;color:var(--brand);margin-top:2px;letter-spacing:1.5px}
-  .sub{color:var(--muted);font-size:calc(13px * var(--fs));margin-top:6px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;
-    box-shadow:0 8px 30px rgba(30,45,90,.06)}
-  .card+.card{margin-top:16px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;cursor:pointer;
-    font-weight:700;border-radius:12px;padding:13px 20px;font-size:calc(15px * var(--fs));transition:.15s;background:var(--soft);color:var(--ink)}
-  .btn.primary{background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(61,90,254,.28)}
-  .btn.primary:hover{background:#2f4bdb}
-  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--muted)}
-  .btn.ghost:hover{border-color:var(--brand);color:var(--brand)}
-  .btn.ok{background:var(--ok);color:#fff}
-  .btn.bad{background:var(--bad);color:#fff}
-  .btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-  .row{display:flex;flex-wrap:wrap;gap:12px}
-  .foot.sticky{position:sticky;bottom:0;margin-top:16px;padding:12px 0 4px;background:var(--card);z-index:6;border-top:1px solid var(--line);box-shadow:0 -6px 16px rgba(30,45,90,.07)}
-  .chapter-chip{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1.5px solid var(--line);
-    border-radius:12px;background:var(--card);cursor:pointer;user-select:none;font-size:calc(14px * var(--fs));transition:.12s}
-  .chapter-chip.checked{border-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:700}
-  .chapter-chip .dot{width:16px;height:16px;border-radius:5px;border:2px solid var(--track);display:grid;place-items:center;font-size:calc(11px * var(--fs));color:#fff}
-  .chapter-chip.checked .dot{background:var(--brand);border-color:var(--brand)}
-  select, input[type=number]{padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:calc(15px * var(--fs));background:var(--card);color:var(--ink)}
-  .field-label{font-size:calc(13px * var(--fs));color:var(--muted);margin-bottom:6px;font-weight:600}
-  .progress-wrap{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;margin:4px 0 6px}
-  .progress{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;transition:width .25s}
-  .topline{display:flex;justify-content:space-between;align-items:center;font-size:calc(13px * var(--fs));color:var(--muted)}
-  .pill{background:var(--brand);color:#fff;border-radius:999px;padding:3px 10px;font-size:calc(12px * var(--fs));font-weight:700}
-  .pill.gray{background:var(--soft);color:var(--muted)}
-  .qcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 30px rgba(30,45,90,.06);
-    animation:fade .25s ease}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .q-en{font-size:calc(19px * var(--fs));font-weight:700}
-  .q-zh{font-size:calc(15px * var(--fs));color:var(--muted);margin-top:8px;padding-left:11px;border-left:3px solid var(--line)}
-  .opts{margin-top:20px;display:grid;gap:12px}
-  .opt{border:1.5px solid var(--line);border-radius:13px;padding:13px 15px;cursor:pointer;display:flex;gap:12px;
-    align-items:flex-start;transition:.13s;background:var(--card)}
-  .opt:hover{border-color:var(--brand2);background:var(--hover)}
-  .opt .key{flex:0 0 30px;height:30px;width:30px;border-radius:8px;background:var(--soft);display:grid;place-items:center;
-    font-weight:800;font-size:calc(14px * var(--fs))}
-  .opt .txt{flex:1;min-width:0}
-  .opt .txt .en{font-size:calc(15px * var(--fs))}
-  .opt .txt .zh{font-size:calc(13px * var(--fs));color:var(--muted);margin-top:2px}
-  .opt.correct{border-color:var(--ok);background:var(--ok-bg)}
-  .opt.correct .key{background:var(--ok);color:#fff}
-  .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
-  .opt.wrong .key{background:var(--bad);color:#fff}
-  .opt.dim{opacity:.55}
-  .opt.locked{cursor:default;pointer-events:none}
-  .feedback{margin-top:18px;border-radius:14px;padding:15px 16px;font-size:calc(15px * var(--fs));display:none}
-  .feedback.show{display:block;animation:fade .2s ease}
-  .feedback.ok{background:var(--ok-bg);border:1px solid var(--ok-br)}
-  .feedback.bad{background:var(--bad-bg);border:1px solid var(--bad-br)}
-  .feedback .title{font-weight:800;font-size:calc(16px * var(--fs))}
-  .feedback .detail{margin-top:6px;color:var(--detail)}
-  .feedback .hr{border-top:1px dashed var(--hr);margin:10px 0}
-  .exp{margin-top:10px;padding:9px 12px;background:var(--exp-bg);border-left:3px solid var(--exp-br);border-radius:8px;font-size:calc(14px * var(--fs));color:var(--exp-ink);line-height:1.55}
-  .exp b{color:var(--exp-ink2)}
-  .foot{margin-top:18px;display:flex;justify-content:space-between;align-items:center}
-  .muted{color:var(--muted)}
-  .center{text-align:center}
-  h2.lg{font-size:calc(32px * var(--fs));margin:0}
-  .score-ring{width:170px;height:170px;margin:16px auto;position:relative}
-  .ring{width:170px;height:170px;transform:rotate(-90deg)}
-  .ring circle{fill:none;stroke-width:13;stroke-linecap:round}
-  .ring .track{stroke:var(--soft)}
-  .ring .val{stroke:var(--brand);transition:stroke-dashoffset 1s ease}
-  .score-num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-  .score-num .big{font-size:calc(38px * var(--fs));font-weight:800}
-  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
-  .stat{background:var(--soft);border-radius:14px;padding:12px;text-align:center}
-  .stat .v{font-size:calc(24px * var(--fs));font-weight:800}
-  .stat .l{font-size:calc(12px * var(--fs));color:var(--muted);margin-top:2px}
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);font-size:calc(14px * var(--fs))}
-  th{color:var(--muted);font-weight:600;font-size:calc(12px * var(--fs))}
-  .bar-cell{width:120px}
-  .bar{height:8px;border-radius:999px;background:var(--soft);overflow:hidden}
-  .bar>span{display:block;height:100%;background:var(--ok);border-radius:999px}
-  .wrong-item{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:12px;background:var(--card)}
-  .wrong-item .qx{font-weight:700;font-size:calc(15px * var(--fs))}
-  .wrong-item .meta{font-size:calc(12px * var(--fs));color:var(--muted);margin-top:3px}
-  .wrong-item .ansline{margin-top:8px;font-size:calc(14px * var(--fs))}
-  .wrong-item .ansline b{color:var(--ok)}
-  .wrong-item .yourline{font-size:calc(13px * var(--fs));color:var(--bad)}
-  .hide{display:none!important}
-  .kv{display:flex;flex-direction:column;gap:6px}
-  .toggle{display:flex;align-items:center;justify-content:space-between}
-  .radio-group{display:flex;gap:10px;flex-wrap:wrap}
-  .radio-chip{padding:9px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:calc(14px * var(--fs));background:var(--card)}
-  .radio-chip.sel{border-color:var(--brand);color:var(--brand);font-weight:700;background:var(--brand-soft)}
-  .void{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-  .tag{font-size:calc(12px * var(--fs));background:var(--soft);color:var(--muted);border-radius:999px;padding:3px 10px}
-  .lang-lbl{font-size:calc(12px * var(--fs));color:var(--muted);margin:6px 0 2px;font-weight:700}
-  .switch{display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;-webkit-user-select:none}
-  .switch .sw-text{font-size:calc(12px * var(--fs));color:var(--muted);font-weight:600;white-space:nowrap}
-  .switch .sw-track{width:42px;height:23px;border-radius:999px;background:var(--track);position:relative;transition:.18s}
-  .switch .sw-knob{position:absolute;top:2.5px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
-  .switch.on .sw-track{background:var(--brand)}
-  .switch.on .sw-knob{left:21px}
-  @media (max-width:520px){ .brand{font-size:calc(22px * var(--fs))} .stat-grid{grid-template-columns:repeat(3,1fr)} .wrap{padding:14px 12px 50px} .topline .sw-text{display:none} }
-  .seg{display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
-  .seg>div{padding:7px 12px;font-size:calc(13px * var(--fs));cursor:pointer;color:var(--muted);background:var(--card)}
-  .seg>div+div{border-left:1.5px solid var(--line)}
-  .seg>div.sel{background:var(--brand-soft);color:var(--brand);font-weight:700}
-  .combo{position:fixed;left:50%;top:15%;transform:translateX(-50%) scale(.6);z-index:50;pointer-events:none;
-    background:linear-gradient(135deg,#ff8a00,#ff3d6e);color:#fff;font-weight:900;font-size:calc(24px * var(--fs));
-    padding:9px 20px;border-radius:999px;box-shadow:0 10px 30px rgba(255,90,60,.45);opacity:0;transition:.18s;white-space:nowrap}
-  .combo.show{opacity:1;transform:translateX(-50%) scale(1)}
-  .star-btn{background:transparent;border:none;cursor:pointer;font-size:calc(22px * var(--fs));line-height:1;color:var(--muted);padding:0 4px}
-  .star-btn.on{color:#f5b301}
-  #qBody{position:relative}
+:root{--bg:#f5f6fa;--card:#fff;--ink:#192039;--muted:#697186;--brand:#5147dd;--brand2:#8c82f3;--brand-soft:#eeecff;--line:#e5e7ef;--soft:#f1f3f8;--hover:#f7f6ff;--track:#c4c9d8;--ok:#187b57;--bad:#c44452;--warn:#ba781e;--ok-bg:#edf8f1;--ok-br:#b6dfc9;--bad-bg:#fff0f1;--bad-br:#f0c5cb;--detail:#3e485d;--hr:#d8dce6;--exp-bg:#fff8e9;--exp-br:#d5a44c;--exp-ink:#655027;--exp-ink2:#825e1e;--fs:1;--shadow:0 7px 28px #20284c05;color-scheme:light}
+html[data-theme=dark]{--bg:#141722;--card:#1d2231;--ink:#eff1fb;--muted:#abb3c9;--brand:#a69cff;--brand2:#bfb6ff;--brand-soft:#302c4f;--line:#333a4e;--soft:#272d3f;--hover:#292d44;--track:#535d77;--ok:#68d4a3;--bad:#ff9ba7;--warn:#e9b964;--ok-bg:#203c32;--ok-br:#376b54;--bad-bg:#412c36;--bad-br:#744451;--detail:#d0d7e9;--hr:#414960;--exp-bg:#3b3424;--exp-br:#caa15a;--exp-ink:#f2dfb4;--exp-ink2:#f5c971;--shadow:none;color-scheme:dark}
+html[data-theme=sepia]{--bg:#f3eee3;--card:#fffcf4;--ink:#39372f;--muted:#7b7565;--brand:#746249;--brand2:#9b8667;--brand-soft:#ece3d1;--line:#e4dac7;--soft:#f1ebdf;--hover:#f7efdf;--track:#cbbfa8;--detail:#5c5344;--shadow:none;color-scheme:light}
+*{box-sizing:border-box}html,body{margin:0;padding:0}html{scroll-padding-top:100px}body{background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%;font-size:calc(15px * var(--fs))}button,input,select{font:inherit}button{color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--brand2);outline-offset:3px}button:disabled{cursor:default}button{border:0}svg{display:block;width:22px;height:22px;flex-shrink:0}h1,h2,h3,p{margin:0}h2{font-size:calc(20px * var(--fs));letter-spacing:-.4px}small{font-size:calc(12px * var(--fs))}.hide{display:none!important}.muted{color:var(--muted)}.center{text-align:center}.wrap{max-width:1160px;padding:0 32px 52px;margin:auto}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.app-header{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:100px;border-bottom:1px solid var(--line);margin-bottom:36px}.wordmark{display:flex;align-items:center;gap:12px}.brand-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--brand);color:var(--card)}.wordmark b{font-size:18px;letter-spacing:.5px}.wordmark small{display:block;color:var(--muted);font-size:10px;letter-spacing:1.5px}.home-nav{display:flex;gap:6px;background:var(--soft);padding:5px;border-radius:13px}.nav-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:transparent;color:var(--muted);border-radius:9px;padding:9px 20px;min-height:44px;font-size:calc(14px * var(--fs));font-weight:650}.nav-btn svg{width:18px;height:18px}.nav-btn.active{background:var(--card);color:var(--brand);box-shadow:0 2px 6px #141b3610}.header-state{display:none;color:var(--muted);font-size:12px;letter-spacing:1px}body[data-view=quiz] .home-nav,body[data-view=result] .home-nav{display:none}body:not([data-view=home]) .header-state{display:block}
+.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:28px}.eyebrow{display:flex;align-items:center;gap:8px;color:var(--brand);font-size:11px;letter-spacing:1.5px;font-weight:750;margin-bottom:8px}.eyebrow:before{content:"";width:17px;height:2px;background:currentColor}.page-heading h1{font-size:clamp(26px,3vw,34px);letter-spacing:-1px;line-height:1.4}.page-heading p{color:var(--muted);font-size:calc(14px * var(--fs));margin-top:7px}.course-pill{flex-shrink:0;border:1px solid var(--line);border-radius:10px;padding:10px 16px;background:var(--card);color:var(--muted);font-size:12px;display:flex;align-items:center;gap:12px}.course-pill b{color:var(--ink);font-size:17px}.course-pill i{height:20px;width:1px;background:var(--line)}.practice-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:var(--shadow);min-width:0}.section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.section-heading h2{display:flex;align-items:center;gap:10px}.step-no{width:26px;height:26px;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-size:11px;display:grid;place-items:center;letter-spacing:0}.sub-label{font-size:calc(12px * var(--fs));color:var(--muted)}.chapter-grid{display:grid;gap:10px}.chapter-chip{display:flex;align-items:center;gap:14px;text-align:left;width:100%;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);transition:border-color .15s,background .15s}.chapter-chip:hover{border-color:var(--brand2);background:var(--hover)}.chapter-chip.checked{border-color:var(--brand);background:var(--brand-soft)}.chapter-number{display:grid;place-items:center;background:var(--soft);color:var(--muted);width:45px;height:48px;border-radius:10px;font-size:20px;font-weight:750;flex-shrink:0;letter-spacing:-.7px}.checked .chapter-number{background:var(--card);color:var(--brand)}.chapter-copy{flex:1;min-width:0}.chapter-copy strong{display:block;font-size:calc(15px * var(--fs));font-weight:700;line-height:1.5}.chapter-copy small{display:block;color:var(--muted);font-size:calc(12px * var(--fs));line-height:1.5;margin-top:2px;overflow-wrap:anywhere}.chapter-tail{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}.chapter-tail small{color:var(--muted);font-size:11px}.dot{display:grid;place-items:center;width:19px;height:19px;border:1px solid var(--track);border-radius:6px;font-size:12px;color:transparent}.checked .dot{background:var(--brand);border-color:var(--brand);color:var(--card)}.chapter-extras{margin-top:19px;border-top:1px solid var(--line);padding-top:16px}.chapter-extras summary{cursor:pointer;color:var(--muted);font-size:calc(13px * var(--fs));padding:6px 0;min-height:40px}.chapter-extras .setting-row{padding:12px 0}.chapter-extras .setting-row:last-child{border:0}.plan-card{position:sticky;top:24px}.plan-card .section-heading{margin-bottom:20px}.plan-summary{padding:18px;background:var(--soft);border-radius:13px;margin-bottom:22px}.plan-summary strong{font-size:32px;line-height:1.2;letter-spacing:-1px}.plan-summary .unit{color:var(--muted);font-size:13px;margin-left:6px}.plan-summary p{font-size:calc(12px * var(--fs));color:var(--muted);margin-top:5px}.plan-field{margin-bottom:20px}.field-label{display:block;color:var(--ink);font-weight:650;font-size:calc(13px * var(--fs));margin-bottom:9px}.field-label em{color:var(--muted);font-style:normal;font-weight:400;font-size:11px;margin-left:6px}.radio-group,.seg{display:flex;padding:4px;gap:4px;border-radius:11px;background:var(--soft);flex-wrap:wrap}.radio-chip,.seg>[data-v]{background:transparent;color:var(--muted);border-radius:8px;padding:8px 12px;min-height:40px;flex:1;font-size:calc(13px * var(--fs));font-weight:600;white-space:nowrap}.radio-chip.sel,.seg>.sel{background:var(--card);color:var(--brand);box-shadow:0 2px 5px #141b3610}.quantity-row{display:flex;gap:8px;align-items:center}.quantity-row input{width:84px;min-width:0;min-height:46px;font-size:16px;font-weight:650;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}.quantity-presets{display:flex;gap:5px;flex:1}.quantity-presets button{min-height:44px;background:var(--soft);border:1px solid transparent;border-radius:9px;flex:1;font-size:12px;padding:6px}.quantity-presets button.active{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:11px 17px;border-radius:11px;font-size:calc(14px * var(--fs));font-weight:650;line-height:1.45;text-decoration:none;transition:background .15s,transform .15s;background:var(--soft);color:var(--ink)}.btn.primary{background:var(--brand);color:var(--card)}.btn.primary:hover{filter:brightness(.95)}.btn.ghost{background:var(--card);border:1px solid var(--line);color:var(--muted)}.btn.ghost:hover{color:var(--brand);border-color:var(--brand2)}.btn:disabled{opacity:.42;filter:none;cursor:not-allowed}.btn.danger{color:var(--bad)}.start-action .btn{width:100%;min-height:52px}.start-action .arrow{margin-left:auto;font-size:20px}.start-action p{text-align:center;font-size:11px;color:var(--muted);margin-top:10px}.resume-box:empty{display:none}.resume-box{margin-bottom:20px}.resume-box .btn{max-width:none!important;background:var(--brand-soft);color:var(--brand);border:1px solid var(--brand2);font-size:calc(13px * var(--fs))}.learning-note{margin-top:18px;color:var(--muted);font-size:calc(12px * var(--fs));display:flex;align-items:flex-start;gap:9px}.learning-note svg{width:17px;height:17px;margin-top:2px}.learning-note b{color:var(--ink);font-weight:650}.progress-meter{height:5px;background:var(--line);border-radius:5px;margin-top:12px;overflow:hidden}.progress-meter span{height:100%;display:block;background:var(--brand2);border-radius:5px;transition:width .2s}
+.library-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}.collection-icon{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;margin-bottom:18px;background:var(--brand-soft);color:var(--brand)}.collection-icon.mistakes{background:var(--bad-bg);color:var(--bad)}.collection-icon.starred{background:var(--exp-bg);color:var(--exp-ink2)}.collection-card p{font-size:calc(13px * var(--fs));color:var(--muted);margin:8px 0 22px}.collection-count{font-size:calc(13px * var(--fs));color:var(--muted);margin-top:6px}.collection-actions{display:flex;gap:10px}.collection-actions .primary{flex:1}.list-box{margin-top:24px;border-top:1px solid var(--line);padding-top:20px}.library-tip{margin-top:24px;color:var(--muted);font-size:calc(12px * var(--fs))}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}.settings-stack{display:grid;gap:24px}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}.setting-row:last-child{border-bottom:0;padding-bottom:0}.setting-copy{min-width:0}.setting-copy strong{display:block;font-size:calc(14px * var(--fs));font-weight:650}.setting-copy small{color:var(--muted);display:block;margin-top:4px;font-size:calc(12px * var(--fs))}.switch{background:transparent;padding:8px 0 8px 8px;display:inline-flex;align-items:center;gap:8px;flex-shrink:0;min-height:44px;user-select:none}.sw-text{font-size:12px;color:var(--muted)}.sw-track{width:42px;height:24px;position:relative;border-radius:99px;background:var(--track);display:block;transition:background .15s}.sw-knob{position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;box-shadow:0 1px 3px #0002;transition:transform .15s}.switch.on .sw-track{background:var(--brand)}.switch.on .sw-knob{transform:translateX(18px)}.settings-choice{margin-top:22px}.settings-choice .field-label{margin-bottom:10px}.backup-actions{display:flex;gap:10px;margin:18px 0}.backup-actions button{flex:1}.destructive-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.destructive-actions button{font-size:calc(12px * var(--fs))}.settings-note{font-size:calc(12px * var(--fs));color:var(--muted);line-height:1.8}
+#quiz,#result{max-width:800px;margin:0 auto}.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px}.quiz-title{font-size:calc(20px * var(--fs));font-weight:750}.quiz-topline{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px;flex-wrap:wrap}.quiz-badges{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.pill{background:var(--brand-soft);color:var(--brand);border-radius:7px;padding:4px 9px;font-size:calc(12px * var(--fs));font-weight:650}.pill.gray{background:var(--soft);color:var(--muted)}.question-tools{display:flex;align-items:center;gap:8px}.star-btn{min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--card);border-radius:10px;font-size:23px;color:var(--muted)}.star-btn.on{background:var(--exp-bg);color:var(--exp-ink2);border-color:var(--exp-br)}.progress-wrap{height:5px;background:var(--line);overflow:hidden;border-radius:5px;margin-bottom:22px}.progress{height:100%;width:0;background:var(--brand);transition:width .2s}.qcard{background:var(--card);padding:30px;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.question-label{font-size:10px;color:var(--muted);letter-spacing:1.8px;margin-bottom:14px;font-weight:700}.q-en{font-size:calc(21px * var(--fs));font-weight:680;line-height:1.55;letter-spacing:-.3px;overflow-wrap:anywhere}.q-zh{font-size:calc(15px * var(--fs));color:var(--muted);padding-top:12px;line-height:1.7}.opts{display:grid;gap:11px;margin-top:26px}.opt{display:flex;text-align:left;align-items:flex-start;gap:13px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;line-height:1.65;color:var(--ink)}.opt:not(.locked):hover{border-color:var(--brand);background:var(--hover)}.opt .key{width:31px;height:31px;flex:0 0 31px;background:var(--soft);border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:750}.opt .txt{flex:1;min-width:0;overflow-wrap:anywhere}.opt .en{font-size:calc(15px * var(--fs));padding-top:2px}.opt .zh{font-size:calc(13px * var(--fs));color:var(--muted);margin-top:5px}.opt.correct{border-color:var(--ok);background:var(--ok-bg)}.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}.opt.correct .key{background:var(--ok);color:var(--card)}.opt.wrong .key{background:var(--bad);color:var(--card)}.opt.correct:after{content:"✓";color:var(--ok);font-weight:800}.opt.wrong:after{content:"×";color:var(--bad);font-weight:800}.opt.dim{opacity:.55}.opt.locked{cursor:default}.feedback{display:none;margin-top:20px;padding:18px;border-radius:13px;font-size:calc(14px * var(--fs))}.feedback.show{display:block}.feedback.ok{background:var(--ok-bg);border:1px solid var(--ok-br)}.feedback.bad{background:var(--bad-bg);border:1px solid var(--bad-br)}.feedback .title{font-size:calc(15px * var(--fs));font-weight:750}.feedback .detail{color:var(--detail);margin-top:5px}.exp{margin-top:12px;border-left:3px solid var(--exp-br);background:var(--exp-bg);color:var(--exp-ink);padding:12px;border-radius:5px;font-size:calc(13px * var(--fs))}.exp b{color:var(--exp-ink2)}.quiz-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:22px;border-top:1px solid var(--line);padding-top:20px}.quiz-footer small{color:var(--muted);font-size:12px}.quiz-footer .btn{min-width:180px}.combo{position:fixed;top:20%;left:50%;transform:translate(-50%,-10px);background:var(--ink);color:var(--card);border-radius:99px;padding:12px 22px;pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;z-index:50;font-weight:750;white-space:nowrap}.combo.show{opacity:1;transform:translate(-50%,0)}
+.result-hero{text-align:center;padding:34px}.result-hero .eyebrow{justify-content:center}.result-hero h2{font-size:calc(27px * var(--fs));line-height:1.4}.score-ring{position:relative;width:170px;height:170px;margin:20px auto}.ring{width:170px;height:170px;transform:rotate(-90deg)}.ring circle{fill:none;stroke-width:10;stroke-linecap:round}.ring .track{stroke:var(--soft)}.ring .val{stroke:var(--brand);transition:stroke-dashoffset .7s}.score-num{position:absolute;inset:0;display:grid;place-items:center}.score-num .big{font-size:40px;font-weight:800;letter-spacing:-1.6px}.stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}.stat{padding:13px 6px;border-radius:12px;background:var(--soft)}.stat .v{font-size:calc(25px * var(--fs));font-weight:750}.stat .l{font-size:calc(11px * var(--fs));color:var(--muted)}.result-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:24px}#result>.card+.card{margin-top:22px}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:calc(13px * var(--fs));margin-top:15px}th,td{text-align:left;padding:13px 8px;border-bottom:1px solid var(--line)}th{font-size:11px;font-weight:600;color:var(--muted)}td:first-child{min-width:130px}td:not(:first-child){white-space:nowrap}.bar-cell{min-width:78px}.bar{height:5px;border-radius:9px;overflow:hidden;background:var(--soft)}.bar>span{display:block;height:100%;background:var(--ok)}.wrong-item{padding:17px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.wrong-item:last-child{border-bottom:0}.wrong-item .meta{font-size:11px;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}.wrong-item .qx{font-size:calc(14px * var(--fs));font-weight:650;line-height:1.6}.wrong-item .ansline{font-size:calc(13px * var(--fs));margin-top:10px}.wrong-item .ansline b{color:var(--ok)}.wrong-item .yourline{font-size:calc(12px * var(--fs));color:var(--bad);margin-top:6px}.row{display:flex;flex-wrap:wrap;gap:10px}
+@media(min-width:900px){.practice-left .chapter-grid:has(.chapter-chip:nth-child(5)){grid-template-columns:1fr 1fr}.practice-left .chapter-grid:has(.chapter-chip:nth-child(5)) .chapter-chip{gap:9px;padding:13px}.practice-left .chapter-grid:has(.chapter-chip:nth-child(5)) .chapter-number{width:34px;font-size:17px}.practice-left .chapter-grid:has(.chapter-chip:nth-child(5)) .chapter-copy small{font-size:11px}}
+@media(max-width:899px){.wrap{padding:0 22px 38px}.app-header{min-height:88px;margin-bottom:28px}.nav-btn{padding:9px 14px}.practice-grid{grid-template-columns:minmax(0,1fr) 290px;gap:16px}.card{padding:20px}.library-grid,.settings-grid{gap:16px}.course-pill{display:none}.chapter-chip{gap:11px;padding:13px}.chapter-number{width:37px;height:44px;font-size:18px}.chapter-copy small{font-size:11px}.setting-row{gap:12px}.section-heading h2{font-size:calc(18px * var(--fs))}}
+@media(max-width:680px){.wrap{padding:0 16px 30px}.app-header{min-height:0;display:block;padding:18px 0 12px;margin-bottom:22px;border-bottom:0}.wordmark{gap:10px}.brand-icon{width:34px;height:34px;border-radius:10px}.brand-icon svg{width:21px;height:21px}.wordmark b{font-size:16px}.wordmark small{font-size:9px}.home-nav{margin-top:20px;width:100%;padding:4px}.nav-btn{flex:1;padding:8px 4px}.page-heading{margin-bottom:20px}.page-heading h1{font-size:26px}.page-heading p{font-size:calc(12px * var(--fs));margin-top:5px}.eyebrow{font-size:10px;margin-bottom:6px}.practice-grid,.library-grid,.settings-grid{grid-template-columns:1fr;gap:16px}.card{border-radius:16px;padding:18px}.section-heading{margin-bottom:16px}.chapter-chip{padding:13px;gap:12px;border-radius:12px;min-height:78px}.chapter-number{width:40px;height:44px;font-size:18px}.chapter-copy strong{font-size:calc(14px * var(--fs))}.chapter-copy small{font-size:calc(11px * var(--fs))}.chapter-tail{gap:3px}.plan-card{position:static}.plan-summary{padding:12px 14px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.plan-summary strong{font-size:25px}.plan-summary p{margin:0;text-align:right}.plan-controls{display:grid;grid-template-columns:1fr 1fr;gap:15px}.plan-field{margin-bottom:0;min-width:0}.quantity-row{flex-wrap:wrap}.quantity-row input{width:100%;min-height:44px}.quantity-presets{display:none}.radio-chip{padding:8px 5px;font-size:calc(12px * var(--fs));min-height:36px}.field-label em{display:none}.start-action{position:fixed;bottom:0;left:0;right:0;z-index:25;padding:10px max(16px,env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line);box-shadow:0 -5px 20px #19203906}.start-action .btn{min-height:50px;max-width:648px;margin:auto;display:flex}.start-action p{display:none}body[data-view=home][data-tab=practice] .wrap{padding-bottom:calc(100px + env(safe-area-inset-bottom))}.learning-note{font-size:calc(11px * var(--fs));margin-top:14px}.resume-box{margin-bottom:16px}.collection-card p{margin:7px 0 18px}.collection-icon{margin-bottom:14px;width:40px;height:40px}.settings-stack{gap:16px}.settings-choice{margin-top:18px}.setting-row{padding:17px 0}.seg>[data-v]{padding:8px 6px}.settings-grid .card .section-heading{margin-bottom:0}body[data-view=quiz] .app-header,body[data-view=result] .app-header{display:flex;padding:16px 0;margin-bottom:12px;min-height:66px}.header-state{font-size:10px;letter-spacing:.5px}.quiz-head{margin-bottom:12px}.quiz-title{font-size:calc(18px * var(--fs))}.quiz-head .btn{min-height:42px;padding:9px 12px;font-size:13px}.quiz-topline{gap:4px}.quiz-badges{gap:5px}.pill{font-size:calc(11px * var(--fs));padding:4px 7px}.question-tools{gap:2px}.question-tools .sw-text{display:none}.question-tools .switch{padding-left:4px}.star-btn{border:0;background:transparent}.progress-wrap{margin-bottom:16px}.qcard{padding:20px 16px;border-radius:16px}.q-en{font-size:calc(18px * var(--fs));line-height:1.6}.q-zh{font-size:calc(14px * var(--fs))}.question-label{font-size:9px;margin-bottom:10px}.opts{gap:10px;margin-top:21px}.opt{gap:10px;padding:13px 11px;border-radius:11px}.opt .key{width:27px;height:27px;flex-basis:27px;font-size:12px}.opt .en{font-size:calc(14px * var(--fs))}.opt .zh{font-size:calc(12px * var(--fs))}.quiz-footer{position:fixed;bottom:0;left:0;right:0;z-index:25;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--card);margin:0;box-shadow:0 -5px 20px #19203906;gap:10px}.quiz-footer .btn{min-width:0;flex:1;min-height:50px}.quiz-footer small{max-width:105px;font-size:11px;line-height:1.5}body[data-view=quiz] .wrap{padding-bottom:calc(105px + env(safe-area-inset-bottom))}.result-hero{padding:24px 18px}.result-hero h2{font-size:calc(22px * var(--fs))}.result-actions{gap:8px}.result-actions .primary{width:100%}.result-actions .ghost{flex:1;padding:10px}.stat .v{font-size:calc(23px * var(--fs))}.feedback{padding:15px}.wrong-item .qx{font-size:calc(13px * var(--fs))}}
+.radio-chip,.seg>[data-v]{min-height:44px}.settings-grid details summary{min-height:44px;padding:10px 0;cursor:pointer}
+@media(max-width:680px){.practice-grid{display:flex;flex-direction:column}.practice-left,.plan-card{width:100%}.plan-card{order:-1;padding:15px 18px}.plan-card .section-heading,.plan-card .plan-summary{display:none}.practice-left .step-no{display:none}.plan-controls{gap:18px}.radio-chip{min-height:44px}.page-heading .eyebrow{display:none}.page-heading{margin-bottom:18px}.page-heading h1{font-size:25px}.question-tools .switch:before{content:"中文";font-size:11px;color:var(--muted)}.quantity-row input{min-height:44px}.home-nav .nav-btn{min-height:44px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
 </style>
 </head>
-<body>
+<body data-view="home" data-tab="practice">
 <div class="wrap">
-  <header>
-    <div class="brand">战略管理 刷题小程序<span class="en">STRATEGIC MANAGEMENT · QUIZ</span></div>
-    <div class="sub">MGT 590 · Chapters 1–13 · 273 Questions ｜ 共273题 · 中英双语</div>
+  <header class="app-header">
+    <div class="wordmark"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h6l2 2 2-2h6v15h-6l-2 2-2-2H4zM12 6v15M7 8h2m-2 4h2m6-4h2m-2 4h2"/></svg></span><div><b>战略管理</b><small>STRATEGIC MANAGEMENT · 版本 1.1</small></div></div>
+    <nav class="home-nav" aria-label="主要导航">
+      <button type="button" class="nav-btn active" data-tab="practice" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>练习</button>
+      <button type="button" class="nav-btn" data-tab="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h6l2 2 2-2h6v14h-6l-2 2-2-2H4zM12 8v14"/></svg>复习</button>
+      <button type="button" class="nav-btn" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 17h16"/><rect x="8" y="4" width="4" height="6" rx="1" fill="currentColor"/><rect x="14" y="14" width="4" height="6" rx="1" fill="currentColor"/></svg>设置</button>
+    </nav><span class="header-state">MGT 590 · 专注练习</span>
   </header>
-
-  <!-- HOME -->
-  <div id="home">
-    <div class="card">
-      <div class="field-label">选择章节 · Choose Chapters</div>
-      <div id="chapters" class="row" style="margin-top:8px"></div>
-      <div class="toggle" style="margin-top:10px">
-        <div>
-          <div class="field-label" style="margin:0">显示第6–10章（exam2 已结束）· Show Ch 6–10</div>
+  <main>
+    <div id="home">
+      <section id="practicePanel" class="home-panel" aria-label="练习">
+        <div class="page-heading"><div><div class="eyebrow">PRACTICE / 练习</div><h1>开始今天的练习</h1><p>选好章节，按自己的节奏，一题一题学扎实。</p></div><div class="course-pill"><span><b id="totalChapters">13</b> 章节</span><i></i><span><b id="totalQuestions">273</b> 道题</span></div></div>
+        <div id="resumeBox" class="resume-box"></div>
+        <div class="practice-grid">
+          <div class="practice-left">
+            <section class="card"><div class="section-heading"><h2><span class="step-no">01</span>选择章节</h2><span id="chapterSelectionCount" class="sub-label">已选 3 章</span></div>
+              <div id="chapters" class="chapter-grid"></div>
+              <details class="chapter-extras"><summary>更多章节 · 第 1–10 章</summary>
+                <div class="setting-row"><div class="setting-copy"><strong>第 6–10 章</strong><small>Exam 2 · 显示或收起</small></div><button type="button" id="oldCh2Switch" class="switch oldch2-switch" role="switch" aria-checked="false" aria-label="显示第6至10章"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+                <div class="setting-row"><div class="setting-copy"><strong>第 1–5 章</strong><small>Exam 1 · 显示或收起</small></div><button type="button" id="oldChSwitch" class="switch oldch-switch" role="switch" aria-checked="false" aria-label="显示第1至5章"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+              </details>
+            </section>
+            <div class="learning-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg><div><b id="doneSummary">已练习 0 / 273 道</b><br>进度自动保存在当前设备，随时可以接着练。<div class="progress-meter"><span id="doneMeter"></span></div></div></div>
+          </div>
+          <section class="card plan-card"><div class="section-heading"><h2><span class="step-no">02</span>本轮安排</h2></div>
+            <div class="plan-summary"><div><strong id="sessionSize">20</strong><span class="unit">道题</span></div><p id="selectionSummary">已选章节共 60 道题</p></div>
+            <div class="plan-controls">
+              <div class="plan-field"><div class="field-label">出题顺序 <em>ORDER</em></div><div id="order" class="radio-group" aria-label="出题顺序"><button type="button" class="radio-chip sel" data-v="seq" aria-pressed="true">顺序</button><button type="button" class="radio-chip" data-v="rand" aria-pressed="false">随机</button></div></div>
+              <div class="plan-field"><label for="limit" class="field-label">题目数量 <em>QUESTIONS</em></label><div class="quantity-row"><input type="number" id="limit" min="1" max="273" value="20" inputmode="numeric"><div class="quantity-presets" aria-label="常用题量"><button type="button" data-limit="10">10</button><button type="button" data-limit="20">20</button><button type="button" data-limit="all">全部</button></div></div></div>
+            </div>
+            <div class="start-action"><button type="button" id="startBtn" class="btn primary"><span id="startLabel">开始练习 · 20 题</span><span class="arrow" aria-hidden="true">→</span></button><p>答题后即时反馈 · 支持中英双语</p></div>
+          </section>
         </div>
-        <div id="oldCh2Switch" class="switch oldch2-switch" title="显示第6-10章">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:10px">
-        <div>
-          <div class="field-label" style="margin:0">显示第1–5章（exam1 已结束）· Show Ch 1–5</div>
-        </div>
-        <div id="oldChSwitch" class="switch oldch-switch" title="显示第1-5章">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="kv" style="margin-top:18px">
-        <div>
-          <div class="field-label">出题顺序 · Order</div>
-          <div class="radio-group" id="order">
-            <div class="radio-chip sel" data-v="seq">顺序 · Sequential</div>
-            <div class="radio-chip" data-v="rand">随机 · Random</div>
+      </section>
+      <section id="libraryPanel" class="home-panel hide" aria-label="复习">
+        <div class="page-heading"><div><div class="eyebrow">REVIEW / 复习</div><h1>把易错的，再学一遍</h1><p>集中复习错题，也可以重练自己收藏的重点。</p></div></div>
+        <div class="library-grid">
+          <section class="card collection-card"><div class="collection-icon mistakes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 4h14v16H5zM9 8l6 6m0-6-6 6"/></svg></div><h2>错题本</h2><div id="wrongCount" class="collection-count">0 道错题</div><p>做对后仍然保留，掌握后可以手动移除。</p><div class="collection-actions"><button type="button" class="btn ghost" id="viewWrongBtn" aria-expanded="false" aria-controls="wrongListBox">查看列表</button><button type="button" class="btn primary" id="wrongBtn">错题重练 →</button></div><div id="wrongListBox" class="list-box hide"></div></section>
+          <section class="card collection-card"><div class="collection-icon starred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></svg></div><h2>收藏夹</h2><div id="starCount" class="collection-count">0 道收藏</div><p>答题时点亮星标，把值得再看的题留下来。</p><div class="collection-actions"><button type="button" class="btn ghost" id="viewStarBtn" aria-expanded="false" aria-controls="starListBox">查看列表</button><button type="button" class="btn primary" id="starPracticeBtn">练习收藏 →</button></div><div id="starListBox" class="list-box hide"></div></section>
+        </div><p class="library-tip">换设备前，可以在「设置 → 进度备份」中导出进度。</p>
+      </section>
+      <section id="settingsPanel" class="home-panel hide" aria-label="设置">
+        <div class="page-heading"><div><div class="eyebrow">PREFERENCES / 设置</div><h1>适合你的练习方式</h1><p>语言、显示和练习习惯，都由你来决定。</p></div></div>
+        <div class="settings-grid">
+          <section class="card"><div class="section-heading"><h2>语言与练习</h2></div>
+            <div class="setting-row"><div class="setting-copy"><strong>作答后显示中文</strong><small>答题后显示题干、选项的中文翻译。</small></div><button type="button" id="zhSwitchHome" class="switch on zh-switch" role="switch" aria-checked="true" aria-label="作答后显示中文"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+            <div class="setting-row"><div class="setting-copy"><strong>全程显示中文</strong><small>作答前也显示中文，适合先理解知识点。</small></div><button type="button" id="zhAllSwitch" class="switch zhall-switch" role="switch" aria-checked="false" aria-label="全程显示中文"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+            <div class="setting-row"><div class="setting-copy"><strong>随机练习跳过已做题</strong><small>随机模式优先抽取还没做过的题；全部做过后重新抽取。</small></div><button type="button" id="skipDoneSwitch" class="switch skip-done-switch" role="switch" aria-checked="false" aria-label="随机练习跳过已做题"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+            <div class="setting-row"><div class="setting-copy"><strong>答题音效</strong><small>答对、答错提示音，以及连续答对的反馈。</small></div><button type="button" id="soundSwitch" class="switch on sound-switch" role="switch" aria-checked="true" aria-label="答题音效"><span class="sw-track"><span class="sw-knob"></span></span></button></div>
+          </section>
+          <div class="settings-stack">
+            <section class="card"><div class="section-heading"><h2>显示偏好</h2></div><div class="settings-choice"><div class="field-label">页面主题</div><div class="seg" id="themeSeg" aria-label="页面主题"><button type="button" data-v="light" class="sel">浅色</button><button type="button" data-v="sepia">护眼</button><button type="button" data-v="dark">深色</button></div></div><div class="settings-choice"><div class="field-label">文字大小</div><div class="seg" id="fsSeg" aria-label="文字大小"><button type="button" data-v="0.9">小</button><button type="button" data-v="1" class="sel">中</button><button type="button" data-v="1.15">大</button><button type="button" data-v="1.3">特大</button></div></div></section>
+            <section class="card"><div class="section-heading"><h2>进度备份</h2></div><p class="settings-note">错题、已做记录与练习设置保存在当前设备。导出文件后，可在其他设备导入。</p><div class="backup-actions"><button type="button" class="btn ghost" id="exportBtn">导出进度 ↗</button><button type="button" class="btn ghost" id="importBtn">导入进度 ↙</button></div><input type="file" id="importFile" accept="application/json,.json" hidden><details><summary class="sub-label">记录管理</summary><div class="destructive-actions"><button type="button" class="btn ghost" id="resetDoneBtn">重置已做记录</button><button type="button" class="btn ghost danger" id="clearBtn">清空错题本</button></div></details></section>
           </div>
         </div>
-        <div>
-          <div class="field-label">题目数量 · Number of Questions</div>
-          <input type="number" id="limit" min="1" value="20" style="width:160px">
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
-          <div class="field-label" style="margin:0">显示中文翻译 · Show Chinese</div>
-          <div class="muted" style="font-size:calc(12px * var(--fs))">开启后，作答后题干与选项显示中文；未作答时是否显示由下面「全程显示」决定</div>
-        </div>
-        <div id="zhSwitchHome" class="switch on zh-switch" title="显示/隐藏中文翻译">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
-          <div class="field-label" style="margin:0">全程显示中文翻译 · Always show Chinese</div>
-          <div class="muted" style="font-size:calc(12px * var(--fs))">开启后，未作答时题干与选项也直接显示中文</div>
-        </div>
-        <div id="zhAllSwitch" class="switch zhall-switch" title="全程显示中文翻译">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
-          <div class="field-label" style="margin:0">随机出题跳过做过的题 · Skip done in random</div>
-          <div class="muted" style="font-size:calc(12px * var(--fs))">做过的题不再被随机抽到</div>
-        </div>
-        <div id="skipDoneSwitch" class="switch skip-done-switch" title="跳过做过的题">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="center" style="margin-top:8px">
-        <button class="btn ghost" id="resetDoneBtn" style="font-size:calc(12px * var(--fs));padding:7px 14px;color:var(--muted)">重置“已做”记录 · Reset done</button>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div><div class="field-label" style="margin:0">主题 · Theme</div></div>
-        <div class="seg" id="themeSeg">
-          <div data-v="light" class="sel">浅色</div>
-          <div data-v="sepia">护眼</div>
-          <div data-v="dark">深色</div>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div><div class="field-label" style="margin:0">字号 · Text size</div></div>
-        <div class="seg" id="fsSeg">
-          <div data-v="0.9">小</div>
-          <div data-v="1" class="sel">中</div>
-          <div data-v="1.15">大</div>
-          <div data-v="1.3">特大</div>
-        </div>
-      </div>
-      <div class="toggle" style="margin-top:14px">
-        <div>
-          <div class="field-label" style="margin:0">音效 · Sound</div>
-          <div class="muted" style="font-size:calc(12px * var(--fs))">答对/答错提示音与连击</div>
-        </div>
-        <div id="soundSwitch" class="switch on sound-switch" title="音效">
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-      <div class="center" id="resumeBox" style="margin-top:14px"></div>
-      <div class="foot" style="margin-top:18px;justify-content:center;gap:12px">
-        <button class="btn primary" id="startBtn" style="flex:1;max-width:280px">开始刷题 · Start Quiz</button>
-      </div>
-      <div class="center muted" style="margin-top:14px;font-size:calc(12px * var(--fs))">错题本自动保存于你自己的设备，各人互不影响 · 把链接发给同学即可 · Each person's mistakes are stored on their own device.</div>
+      </section>
     </div>
-
-    <div class="card">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <div>
-          <div class="field-label" style="margin:0">错题本 · Review Mistakes</div>
-          <div class="muted" id="wrongCount" style="font-size:calc(13px * var(--fs));margin-top:2px">0 道错题</div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn ghost" id="viewWrongBtn" style="font-size:calc(13px * var(--fs))">列表 · List</button>
-          <button class="btn ghost" id="wrongBtn" style="font-size:calc(14px * var(--fs))">错题重练 · Practice</button>
-        </div>
-      </div>
-      <div id="wrongListBox" class="hide" style="margin-top:12px"></div>
-      <div class="row" style="margin-top:12px;gap:10px">
-        <button class="btn ghost" id="exportBtn" style="font-size:calc(13px * var(--fs));flex:1">导出进度 · Export</button>
-        <button class="btn ghost" id="importBtn" style="font-size:calc(13px * var(--fs));flex:1">导入进度 · Import</button>
-        <button class="btn ghost" id="clearBtn" style="font-size:calc(13px * var(--fs));flex:1;color:var(--bad)">清除错题 · Clear</button>
-      </div>
-      <input type="file" id="importFile" accept="application/json,.json" style="display:none">
-      <div class="muted" style="font-size:calc(12px * var(--fs));margin-top:10px">错题本保存在你自己的设备上，互不影响 · Your mistakes are saved locally on your own device.</div>
-    </div>
-
-    <div class="card">
-      <div class="row" style="justify-content:space-between;align-items:center">
-        <div>
-          <div class="field-label" style="margin:0">收藏夹 · Starred</div>
-          <div class="muted" id="starCount" style="font-size:calc(13px * var(--fs));margin-top:2px">0 道收藏</div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn ghost" id="viewStarBtn" style="font-size:calc(13px * var(--fs))">列表 · List</button>
-          <button class="btn ghost" id="starPracticeBtn" style="font-size:calc(14px * var(--fs))">练收藏 · Practice</button>
-        </div>
-      </div>
-      <div id="starListBox" class="hide" style="margin-top:12px"></div>
-      <div class="muted" style="font-size:calc(12px * var(--fs));margin-top:10px">答题时点右上角 ☆ 即可收藏题目，方便重点复习 · Tap ☆ while answering to star a question.</div>
-    </div>
-  </div>
-
-  <!-- QUIZ -->
-  <div id="quiz" class="hide">
-    <div id="comboBadge" class="combo">🔥 连击</div>
-    <div class="topline">
-      <div style="display:flex;gap:8px;align-items:center">
-        <span id="qCounter" class="pill">1 / 20</span>
-        <span id="chTag" class="pill gray">Ch 1</span>
-        <span id="scoreLive" class="pill gray">答对 0</span>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <button id="starBtn" class="star-btn" title="收藏本题 · Star">☆</button>
-        <div id="zhSwitch" class="switch on zh-switch" title="显示/隐藏中文翻译">
-          <span class="sw-text">中文翻译 · CN</span>
-          <span class="sw-track"><span class="sw-knob"></span></span>
-        </div>
-      </div>
-    </div>
-    <div class="progress-wrap"><div class="progress" id="pbar"></div></div>
-    <div class="qcard">
-      <div id="qBody"></div>
-      <div id="feedback" class="feedback"></div>
-      <div class="foot sticky">
-        <button class="btn ghost" id="quitBtn">退出 · Quit</button>
-        <button class="btn primary" id="nextBtn" disabled>下一题 · Next</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- RESULT -->
-  <div id="result" class="hide">
-    <div class="card center">
-      <h2 class="lg" id="resTitle">练习完成</h2>
-      <div class="score-ring">
-        <svg class="ring" viewBox="0 0 170 170">
-          <circle class="track" cx="85" cy="85" r="72"></circle>
-          <circle class="val" id="ringV" cx="85" cy="85" r="72"></circle>
-        </svg>
-        <div class="score-num"><div><div class="big" id="pct">0%</div><div class="muted" style="font-size:calc(12px * var(--fs))">正确率 · Accuracy</div></div></div>
-      </div>
-      <div class="stat-grid">
-        <div class="stat"><div class="v" style="color:var(--ok)">0</div><div class="l">答对 Correct</div></div>
-        <div class="stat"><div class="v" style="color:var(--bad)">0</div><div class="l">答错 Wrong</div></div>
-        <div class="stat"><div class="v">0</div><div class="l">总数 Total</div></div>
-      </div>
-      <div class="muted" id="resCombo" style="margin-top:12px;font-weight:700"></div>
-      <div style="margin-top:20px">
-        <div class="btn primary" id="restartBtn">再来一轮 · Retry</div>
-      </div>
-      <div class="row" style="justify-content:center;margin-top:12px">
-        <button class="btn ghost" id="homeBtn">返回主页 · Home</button>
-        <button class="btn ghost" id="redoWrongBtn">错题重练 · Mistakes</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="field-label">各章表现 · By Chapter</div>
-      <table id="chapTable"><thead></thead><tbody></tbody></table>
-    </div>
-
-    <div class="card">
-      <div class="field-label">错题回顾（附正确答案） · Mistakes Review</div>
-      <div id="wrongList"></div>
-    </div>
-  </div>
+    <section id="quiz" class="hide" aria-label="正在答题">
+      <div id="comboBadge" class="combo" role="status">连击</div>
+      <div class="quiz-head"><div class="quiz-title">专注这一题</div><button type="button" class="btn ghost" id="quitBtn">退出练习</button></div>
+      <div class="quiz-topline"><div class="quiz-badges"><span id="qCounter" class="pill">1 / 20</span><span id="chTag" class="pill gray">Ch 11</span><span id="scoreLive" class="pill gray">答对 0</span></div><div class="question-tools"><button type="button" id="starBtn" class="star-btn" title="收藏本题" aria-label="收藏本题" aria-pressed="false">☆</button><button type="button" id="zhSwitch" class="switch on zh-switch" role="switch" aria-checked="true" aria-label="作答后显示中文"><span class="sw-text">中文翻译 · CN</span><span class="sw-track"><span class="sw-knob"></span></span></button></div></div>
+      <div class="progress-wrap" role="progressbar" id="quizProgress" aria-label="本轮答题进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pbar" class="progress"></div></div>
+      <div class="qcard"><div class="question-label">SINGLE CHOICE · 单项选择</div><div id="qBody"></div><div id="feedback" class="feedback" role="status" aria-live="polite"></div><div class="quiz-footer"><small id="answerHint">选择一个选项<br>查看答案与反馈</small><button type="button" id="nextBtn" class="btn primary" disabled>下一题 →</button></div></div>
+    </section>
+    <section id="result" class="hide" aria-label="练习结果">
+      <div class="card result-hero"><div class="eyebrow">SESSION COMPLETE / 本轮完成</div><h2 id="resTitle">练习完成</h2><div class="score-ring"><svg class="ring" viewBox="0 0 170 170" aria-hidden="true"><circle class="track" cx="85" cy="85" r="72"/><circle class="val" id="ringV" cx="85" cy="85" r="72"/></svg><div class="score-num"><div><div class="big" id="pct">0%</div><small class="muted">本轮正确率</small></div></div></div><div class="stat-grid"><div class="stat"><div class="v" style="color:var(--ok)">0</div><div class="l">答对 Correct</div></div><div class="stat"><div class="v" style="color:var(--bad)">0</div><div class="l">答错 Wrong</div></div><div class="stat"><div class="v">0</div><div class="l">总题数 Total</div></div></div><div id="resCombo" class="muted"></div><div class="result-actions"><button type="button" class="btn primary" id="restartBtn">再来一轮 →</button><button type="button" class="btn ghost" id="homeBtn">返回主页</button><button type="button" class="btn ghost" id="redoWrongBtn">错题重练</button></div></div>
+      <div class="card"><h2>各章表现</h2><div class="table-scroll"><table id="chapTable"><thead></thead><tbody></tbody></table></div></div>
+      <div class="card"><h2>本轮错题回顾</h2><div id="wrongList"></div></div>
+    </section>
+  </main>
 </div>
 
 <script>
@@ -446,7 +183,7 @@ function syncSkipDoneSwitch(){
   document.querySelectorAll('.skip-done-switch').forEach(el=>el.classList.toggle('on', skipDone));
 }
 function toggleSkipDone(){
-  skipDone = !skipDone; saveBool('sm_skipdone', skipDone); syncSkipDoneSwitch();
+  skipDone = !skipDone; saveBool('sm_skipdone', skipDone); syncSkipDoneSwitch(); updateOverview();
 }
 // 全程显示中文翻译
 function zhOn(){ return showZh || showAlwaysZh; }
@@ -483,9 +220,9 @@ function loadSet(key){ try{ const a=JSON.parse(localStorage.getItem(key)||'[]');
 function saveSet(key,set){ try{ localStorage.setItem(key, JSON.stringify([...set])); }catch(e){} }
 
 // ----- 主题 / 字号 / 音效 -----
-function syncThemeSeg(){ document.querySelectorAll('#themeSeg>div').forEach(el=>el.classList.toggle('sel', el.dataset.v===theme)); }
-function applyTheme(t){ theme=t; document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem('sm_theme', t); }catch(e){} syncThemeSeg(); }
-function syncFsSeg(){ document.querySelectorAll('#fsSeg>div').forEach(el=>el.classList.toggle('sel', Math.abs(parseFloat(el.dataset.v)-fsScale)<0.001)); }
+function syncThemeSeg(){ document.querySelectorAll('#themeSeg>[data-v]').forEach(el=>el.classList.toggle('sel', el.dataset.v===theme)); }
+function applyTheme(t){ t=['light','sepia','dark'].includes(t)?t:'light'; theme=t; document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem('sm_theme', t); }catch(e){} syncThemeSeg(); }
+function syncFsSeg(){ document.querySelectorAll('#fsSeg>[data-v]').forEach(el=>el.classList.toggle('sel', Math.abs(parseFloat(el.dataset.v)-fsScale)<0.001)); }
 function applyFs(v){ fsScale=v; document.documentElement.style.setProperty('--fs', String(v)); try{ localStorage.setItem('sm_fs', String(v)); }catch(e){} syncFsSeg(); }
 function syncSoundSwitch(){ document.querySelectorAll('.sound-switch').forEach(el=>el.classList.toggle('on', soundOn)); }
 function toggleSound(){ soundOn=!soundOn; saveBool('sm_sound', soundOn); syncSoundSwitch(); if(soundOn) playCorrect(1); }
@@ -584,37 +321,35 @@ function renderResumeBox(){
   const box=document.getElementById('resumeBox'); if(!box) return;
   const s=loadSaved();
   if(s && s.items && s.items.length){
-    box.innerHTML='<button class="btn primary" id="resumeBtn" style="width:100%;max-width:320px">▶ 继续上次练习 · Resume（第 '+((s.idx||0)+1)+' / '+s.items.length+' 题）</button>';
+    box.innerHTML='<button class="btn primary" id="resumeBtn" style="width:100%">▶ 继续上次练习 · Resume（第 '+((s.idx||0)+1)+' / '+s.items.length+' 题）</button>';
     const rb=document.getElementById('resumeBtn'); if(rb) rb.onclick=resumeSession;
   } else { box.innerHTML=''; }
 }
 function resetDone(){
   if(confirm('确定重置“已做”记录吗？之后随机模式会重新包含这些题目 · Reset the list of done questions?')){
-    doneAns = new Set(); saveDone(); renderWrongCount();
+    doneAns = new Set(); saveDone(); renderWrongCount(); updateOverview();
   }
 }
 
 // ----- chapter chips -----
 function renderChapters(){
-  const c = document.getElementById('chapters');
-  c.innerHTML='';
-  let chs=[...new Set(DATA.map(q=>q.chapter))].sort((a,b)=>a-b);
-  chs = chs.filter(ch => ch>=11 || (ch>=6 && ch<=10 && showOldCh2) || (ch<=5 && showOldCh));
+  const c=document.getElementById('chapters'); c.innerHTML='';
+  const chs=[...new Set(DATA.map(q=>q.chapter))].sort((a,b)=>a-b).filter(ch=>ch>=11||(ch>=6&&ch<=10&&showOldCh2)||(ch<=5&&showOldCh));
   chs.forEach(ch=>{
-    const n=DATA.filter(q=>q.chapter===ch).length;
-    const el=document.createElement('div');
-    el.className='chapter-chip'+(chapters.has(ch)?' checked':'');
-    el.innerHTML='<span class="dot">'+(chapters.has(ch)?'✓':'')+'</span> Ch '+ch+' · '+chapterNames[ch]+' ('+n+')';
-    el.onclick=()=>{ chapters.has(ch)?chapters.delete(ch):chapters.add(ch); renderChapters(); };
-    c.appendChild(el);
+    const items=DATA.filter(q=>q.chapter===ch), q=items[0], on=chapters.has(ch);
+    const el=document.createElement('button'); el.type='button';
+    el.className='chapter-chip'+(on?' checked':''); el.setAttribute('aria-pressed',String(on));
+    el.innerHTML='<span class="chapter-number">'+String(ch).padStart(2,'0')+'</span><span class="chapter-copy"><strong>'+esc(q.chapter_zh||('第 '+ch+' 章'))+'</strong><small>'+esc(chapterNames[ch])+'</small></span><span class="chapter-tail"><span class="dot" aria-hidden="true">✓</span><small>'+items.length+' 题</small></span>';
+    el.onclick=()=>{chapters.has(ch)?chapters.delete(ch):chapters.add(ch);renderChapters();}; c.appendChild(el);
   });
+  updateOverview();
 }
 
 // ----- order chips -----
 function renderOrder(){
   document.querySelectorAll('#order .radio-chip').forEach(el=>{
     el.classList.toggle('sel', el.dataset.v===orderMode);
-    el.onclick=()=>{ orderMode=el.dataset.v; renderOrder(); };
+    el.onclick=()=>{ orderMode=el.dataset.v; renderOrder(); updateOverview(); };
   });
 }
 
@@ -652,7 +387,7 @@ function renderOptions(opts, answerKey, chosen){
   const revealed = showAlwaysZh || (locked && showZh);
   opts.forEach(o=>{
     const t=optionSplit(o.t);
-    const d=document.createElement('div');
+    const d=document.createElement('button'); d.type='button'; d.disabled=locked;
     d.className='opt'+(locked?' locked':'');
     if(locked){
       if(o.k===answerKey) d.classList.add('correct');
@@ -712,9 +447,12 @@ function renderQuestion(){
   document.getElementById('qCounter').textContent=(idx+1)+' / '+session.length;
   document.getElementById('chTag').textContent='Ch '+q.chapter;
   const live=document.getElementById('scoreLive');
-  let c=0; Object.keys(answers).forEach(k=>{ if(answers[k]===findQ(k).ans) c++; });
+  const c=session.filter(item=>answers[qid(item)]===item.ans).length;
   live.textContent='答对 '+c;
-  document.getElementById('pbar').style.width=((idx)/session.length*100)+'%';
+  const progress=Math.round((idx+(chosen!=null?1:0))/session.length*100);
+  document.getElementById('pbar').style.width=progress+'%';
+  document.getElementById('quizProgress').setAttribute('aria-valuenow',String(progress));
+  document.getElementById('answerHint').textContent=chosen!=null?'看完反馈，继续练习':'选择一个选项，查看答案与反馈';
   // feedback visibility
   const f=document.getElementById('feedback');
   if(chosen!=null){ showFeedback(q, chosen, chosen===q.ans); }
@@ -864,6 +602,7 @@ function importProgress(file){
         if(Array.isArray(data.sm_done)){ doneAns = new Set(data.sm_done); saveDone(); }
         if(typeof data.sm_limit==='number'){ limit = data.sm_limit; document.getElementById('limit').value = limit; }
         renderWrongCount();
+        renderChapters(); updateOverview();
         alert('导入成功 · Imported successfully');
       } else {
         alert('文件格式不正确 · Invalid file format');
@@ -880,9 +619,11 @@ function clearWrong(){
 
 // ----- view -----
 function showView(v){
-  document.getElementById('home').classList.toggle('hide', v!=='home');
-  document.getElementById('quiz').classList.toggle('hide', v!=='quiz');
-  document.getElementById('result').classList.toggle('hide', v!=='result');
+  document.getElementById('home').classList.toggle('hide',v!=='home');
+  document.getElementById('quiz').classList.toggle('hide',v!=='quiz');
+  document.getElementById('result').classList.toggle('hide',v!=='result');
+  document.body.dataset.view=v;
+  if(v==='home'){showHomeTab('practice',false);renderResumeBox();renderWrongCount();renderStarCount();updateOverview();}
   window.scrollTo(0,0);
 }
 
@@ -906,7 +647,7 @@ document.getElementById('exportBtn').onclick=exportProgress;
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
 document.getElementById('importFile').onchange=e=>{ if(e.target.files && e.target.files[0]) importProgress(e.target.files[0]); e.target.value=''; };
 document.getElementById('clearBtn').onclick=clearWrong;
-document.getElementById('limit').onchange=function(){ limit=parseInt(this.value)||20; };
+document.getElementById('limit').onchange=function(){ limit=Math.max(1,Math.min(DATA.length,parseInt(this.value)||20)); this.value=limit; updateOverview(); };
 document.getElementById('limit').value=limit;
 
 renderChapters(); renderOrder(); renderWrongCount();
@@ -915,8 +656,8 @@ document.querySelectorAll('.skip-done-switch').forEach(el=>{ el.onclick=toggleSk
 document.querySelectorAll('.zhall-switch').forEach(el=>{ el.onclick=toggleShowAlwaysZh; });
 document.querySelectorAll('.oldch-switch').forEach(el=>{ el.onclick=toggleOldCh; });
 document.querySelectorAll('.oldch2-switch').forEach(el=>{ el.onclick=toggleOldCh2; });
-document.querySelectorAll('#themeSeg>div').forEach(el=>{ el.onclick=()=>applyTheme(el.dataset.v); });
-document.querySelectorAll('#fsSeg>div').forEach(el=>{ el.onclick=()=>applyFs(parseFloat(el.dataset.v)); });
+document.querySelectorAll('#themeSeg>[data-v]').forEach(el=>{ el.onclick=()=>applyTheme(el.dataset.v); });
+document.querySelectorAll('#fsSeg>[data-v]').forEach(el=>{ el.onclick=()=>applyFs(parseFloat(el.dataset.v)); });
 document.querySelectorAll('.sound-switch').forEach(el=>{ el.onclick=toggleSound; });
 document.getElementById('starBtn').onclick=toggleStar;
 document.getElementById('starPracticeBtn').onclick=practiceStarred;
@@ -937,6 +678,57 @@ syncSoundSwitch();
 renderStarCount();
 renderResumeBox();
 showView('home');
+// Presentation helpers. Existing question storage keys and practice flows are retained.
+function updateOverview(){
+  const pool=DATA.filter(q=>chapters.has(q.chapter));
+  const unpracticed=pool.filter(q=>!doneAns.has(qid(q)));
+  const available=skipDone&&orderMode==='rand'&&unpracticed.length?unpracticed:pool;
+  const amount=Math.min(Math.max(1,limit),available.length);
+  document.getElementById('sessionSize').textContent=amount;
+  document.getElementById('startLabel').textContent=amount?'开始练习 · '+amount+' 题':'请先选择章节';
+  document.getElementById('limit').value=limit;
+  document.getElementById('chapterSelectionCount').textContent='已选 '+chapters.size+' 章';
+  document.getElementById('selectionSummary').textContent=chapters.size===0?'请先选择要练习的章节':(skipDone&&orderMode==='rand'&&unpracticed.length?'未做题中可选 '+available.length+' 道':'已选章节共 '+pool.length+' 道题');
+  document.getElementById('startBtn').disabled=!pool.length;
+  document.getElementById('totalQuestions').textContent=DATA.length;
+  document.getElementById('totalChapters').textContent=new Set(DATA.map(q=>q.chapter)).size;
+  const done=DATA.filter(q=>doneAns.has(qid(q))).length;
+  document.getElementById('doneSummary').textContent='已练习 '+done+' / '+DATA.length+' 道';
+  document.getElementById('doneMeter').style.width=(done/DATA.length*100)+'%';
+  document.querySelectorAll('[data-limit]').forEach(el=>{
+    const selected=el.dataset.limit==='all'?limit===pool.length:limit===Number(el.dataset.limit);
+    el.classList.toggle('active',selected);el.setAttribute('aria-pressed',String(selected));
+  });
+}
+function showHomeTab(tab,scroll=true){
+  document.body.dataset.tab=tab;
+  document.querySelectorAll('.home-panel').forEach(el=>el.classList.toggle('hide',el.id!==tab+'Panel'));
+  document.querySelectorAll('.nav-btn').forEach(el=>{
+    const active=el.dataset.tab===tab;el.classList.toggle('active',active);
+    if(active)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');
+  });
+  if(scroll)window.scrollTo(0,0);
+}
+function syncControlLabels(){
+  document.querySelectorAll('.switch').forEach(el=>el.setAttribute('aria-checked',String(el.classList.contains('on'))));
+  document.querySelectorAll('#themeSeg>[data-v],#fsSeg>[data-v],#order>[data-v]').forEach(el=>el.setAttribute('aria-pressed',String(el.classList.contains('sel'))));
+  const star=document.getElementById('starBtn');
+  star.setAttribute('aria-pressed',String(star.classList.contains('on')));
+  star.setAttribute('aria-label',star.classList.contains('on')?'取消收藏本题':'收藏本题');
+  [['viewWrongBtn','wrongListBox'],['viewStarBtn','starListBox']].forEach(([btn,box])=>{
+    const open=!document.getElementById(box).classList.contains('hide');
+    const el=document.getElementById(btn);el.setAttribute('aria-expanded',String(open));
+    el.textContent=open?'收起列表':'查看列表';
+  });
+}
+document.querySelectorAll('.nav-btn').forEach(el=>el.onclick=()=>showHomeTab(el.dataset.tab));
+document.querySelectorAll('[data-limit]').forEach(el=>el.onclick=()=>{
+  limit=el.dataset.limit==='all'?Math.max(1,DATA.filter(q=>chapters.has(q.chapter)).length):Number(el.dataset.limit);
+  document.getElementById('limit').value=limit;updateOverview();
+});
+new MutationObserver(syncControlLabels).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+syncOldCh2Switch();syncControlLabels();updateOverview();
+
 </script>
 </body>
 </html>
