@@ -70,22 +70,60 @@ html[data-theme=sepia]{--bg:#f3eee3;--card:#fffcf4;--ink:#39372f;--muted:#7b7565
  .quiz-footer .btn{min-height:44px}
 }
 
+/* Decorative effects stay out of the document flow and ignore pointer input. */
+.star-btn{position:relative;overflow:visible}
+.star-btn.star-pop{animation:star-pop .55s ease-out}
+.star-spark{position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:1px;background:#eab849;pointer-events:none;animation:star-spark .65s ease-out both}
+@keyframes star-pop{0%,100%{transform:scale(1)}35%{transform:translateY(-3px) scale(1.2)}65%{transform:scale(.96)}}
+@keyframes star-spark{from{opacity:1;transform:translate(-50%,-50%) scale(.4)}to{opacity:0;transform:translate(var(--spark-x),var(--spark-y)) rotate(100deg) scale(.7)}}
+#quizProgress{position:relative}
+#quizProgress.egg-wave:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(115deg,transparent 0 12px,#77d5ed 18px,transparent 26px 44px);background-size:88px 100%;animation:egg-wave 2.4s ease-in-out both}
+@keyframes egg-wave{0%{opacity:0;background-position:0 0}20%,75%{opacity:.9}100%{opacity:0;background-position:176px 0}}
+#quizEasterEgg{position:relative;width:fit-content}
+#quizEasterEgg.egg-fire:after{content:"";position:absolute;right:-18px;top:4px;width:9px;height:13px;background:linear-gradient(25deg,#ffd36b 15%,#ff983d 55%,#e95238);border-radius:65% 5% 60% 45%;transform-origin:center bottom;pointer-events:none;animation:egg-fire .4s ease-in-out 6 alternate}
+@keyframes egg-fire{from{transform:rotate(-12deg) scale(.85);opacity:.65}to{transform:rotate(8deg) scale(1.05);opacity:1}}
+.quiz-confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:80}
+.quiz-confetti i{position:absolute;top:5%;width:5px;height:9px;border-radius:1px;background:var(--paper-color);opacity:0;animation:quiz-paper var(--paper-time) ease-out var(--paper-delay) both}
+@keyframes quiz-paper{0%{opacity:0;transform:translateY(-20px) rotate(0)}12%,75%{opacity:.9}100%{opacity:0;transform:translateY(55vh) rotate(var(--paper-turn))}}
+@media(prefers-reduced-motion:reduce){.star-pop,.star-spark,.egg-wave:after,.egg-fire:after,.quiz-confetti{animation:none!important;display:none!important}.star-btn.star-pop{display:inline-flex!important}}
+
+.brand-icon{position:relative;padding:0;border:0;flex-shrink:0;touch-action:manipulation}
+.brand-icon:before{content:"";position:absolute;inset:-8px}
+.book-peek>svg:first-child{animation:book-flip .6s ease-in-out}
+.book-cat{position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);pointer-events:none;animation:book-cat 2.4s ease-in-out both}
+.book-cat svg{width:24px!important;height:18px!important}
+@keyframes book-flip{50%{transform:perspective(80px) rotateY(-65deg)}}
+@keyframes book-cat{0%,100%{opacity:0;transform:translate(-50%,8px)}15%,85%{opacity:1;transform:translate(-50%,0)}}
+button.header-state{padding:0;border:0;background:none;color:var(--muted);font-family:inherit;cursor:pointer;min-height:44px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:pan-y}
+#quizProgress.combo-rainbow .progress{background:linear-gradient(90deg,#8b83ee,#69cdbb,#efc568,#e995bd,#8b83ee);background-size:200% 100%;animation:combo-shimmer 1.6s ease-out;filter:saturate(var(--combo-saturation,1))}
+@keyframes combo-shimmer{from{background-position:200% 0}to{background-position:0 0}}
+#quizProgress.visitor-active{overflow:visible}
+.cat-track{position:absolute;left:0;right:0;top:-13px;height:14px;overflow:hidden;pointer-events:none}
+.cat-runner{position:absolute;left:-18px;bottom:0;animation:cat-cross 2.6s linear both}
+.cat-runner svg{width:16px;height:12px;animation:cat-step .18s steps(2) infinite}
+@keyframes cat-cross{to{left:100%}}
+@keyframes cat-step{to{transform:translateY(-2px)}}
+html[data-egg-sky]{--bg:#11182c;--card:#1b2640;--ink:#f0f3ff;--muted:#b4bfd9;--brand:#b0a5ff;--brand2:#c6bdff;--brand-soft:#343653;--line:#394562;--soft:#27334e;--hover:#303c5b;--track:#566485;--ok:#79d8ad;--bad:#ffa5b3;--ok-bg:#203d38;--ok-br:#3b715b;--bad-bg:#432e40;--bad-br:#795169;--detail:#d7dff2;--hr:#475575;--exp-bg:#3b3629;--exp-br:#b79b61;--exp-ink:#f0dfb9;--exp-ink2:#f1ce82;color-scheme:dark}
+html[data-egg-sky] body{background-image:radial-gradient(circle at 18px 24px,#d3deef70 0 1px,transparent 1.4px),radial-gradient(circle at 84px 70px,#c4b6ff55 0 1px,transparent 1.3px);background-size:160px 150px,230px 210px}
+html[data-egg-sky] .header-state{color:#f1d58e}
+@media(prefers-reduced-motion:reduce){.book-peek>svg:first-child,.book-cat{animation:none!important}.book-cat{opacity:1}.cat-track{display:none!important}#quizProgress.combo-rainbow .progress{animation:none!important}}
+
 </style>
 </head>
 <body data-view="home" data-tab="practice">
 <div class="wrap">
   <header class="app-header">
-    <div class="wordmark"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h6l2 2 2-2h6v15h-6l-2 2-2-2H4zM12 6v15M7 8h2m-2 4h2m6-4h2m-2 4h2"/></svg></span><div><b>战略管理</b><small>STRATEGIC MANAGEMENT · 版本 1.1</small></div></div>
+    <div class="wordmark"><button type="button" class="brand-icon" aria-label="书本彩蛋，连续点击三次" title="连续点三下，看看书里藏着什么"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 4h6l2 2 2-2h6v15h-6l-2 2-2-2H4zM12 6v15M7 8h2m-2 4h2m6-4h2m-2 4h2"/></svg></button><div><b>战略管理</b><small>STRATEGIC MANAGEMENT · 版本 1.1</small></div></div>
     <nav class="home-nav" aria-label="主要导航">
       <button type="button" class="nav-btn active" data-tab="practice" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>练习</button>
       <button type="button" class="nav-btn" data-tab="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 6h6l2 2 2-2h6v14h-6l-2 2-2-2H4zM12 8v14"/></svg>复习</button>
       <button type="button" class="nav-btn" data-tab="settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16M4 17h16"/><rect x="8" y="4" width="4" height="6" rx="1" fill="currentColor"/><rect x="14" y="14" width="4" height="6" rx="1" fill="currentColor"/></svg>设置</button>
-    </nav><span class="header-state">MGT590</span>
+    </nav><button type="button" class="header-state" aria-pressed="false">MGT590</button>
   </header>
   <main>
     <div id="home">
       <section id="practicePanel" class="home-panel" aria-label="练习">
-        <div class="page-heading"><div><div class="eyebrow">PRACTICE / 练习</div><h1>开始今天的练习</h1><p>选好章节，按自己的节奏，一题一题学扎实。</p></div><div class="course-pill"><span><b id="totalChapters">13</b> 章节</span><i></i><span><b id="totalQuestions">273</b> 道题</span></div></div>
+        <div class="page-heading"><div><div class="eyebrow">PRACTICE / 练习</div><h1>开始今天的练习</h1></div><div class="course-pill"><span><b id="totalChapters">13</b> 章节</span><i></i><span><b id="totalQuestions">273</b> 道题</span></div></div>
         <div id="resumeBox" class="resume-box"></div>
         <div class="practice-grid">
           <div class="practice-left">
@@ -252,7 +290,7 @@ function saveSet(key,set){ try{ localStorage.setItem(key, JSON.stringify([...set
 
 // ----- 主题 / 字号 / 音效 -----
 function syncThemeSeg(){ document.querySelectorAll('#themeSeg>[data-v]').forEach(el=>el.classList.toggle('sel', el.dataset.v===theme)); }
-function applyTheme(t){ t=['light','sepia','dark'].includes(t)?t:'light'; theme=t; document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem('sm_theme', t); }catch(e){} syncThemeSeg(); }
+function applyTheme(t){ document.documentElement.removeAttribute('data-egg-sky');syncSkyEggButton(); t=['light','sepia','dark'].includes(t)?t:'light'; theme=t; document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem('sm_theme', t); }catch(e){} syncThemeSeg(); }
 function syncFsSeg(){ document.querySelectorAll('#fsSeg>[data-v]').forEach(el=>el.classList.toggle('sel', Math.abs(parseFloat(el.dataset.v)-fsScale)<0.001)); }
 function applyFs(v){ fsScale=v; document.documentElement.style.setProperty('--fs', String(v)); try{ localStorage.setItem('sm_fs', String(v)); }catch(e){} syncFsSeg(); }
 function syncSoundSwitch(){ document.querySelectorAll('.sound-switch').forEach(el=>el.classList.toggle('on', soundOn)); }
@@ -299,7 +337,7 @@ function toggleStar(){
   const q=session[idx]; if(!q) return;
   const id=qid(q);
   if(starSet.has(id)) starSet.delete(id); else starSet.add(id);
-  saveSet('sm_star', starSet); syncStarBtn(); renderStarCount();
+  saveSet('sm_star', starSet); syncStarBtn(); renderStarCount(); sparkleStar();
 }
 function renderStarCount(){
   const el=document.getElementById('starCount');
@@ -437,6 +475,7 @@ function select(key){
   answers[qid(q)]=key;
   doneAns.add(qid(q)); saveDone();
   const correct = key===q.ans;
+  rainbowQuizCombo(correct?combo+1:0);
   if(correct){ combo++; if(combo>maxCombo) maxCombo=combo; if(combo>=2) showCombo(combo); playCorrect(combo); }
   else { combo=0; playWrong(); }
   renderQuestion();
@@ -468,7 +507,7 @@ function showFeedback(q,key,correct){
 
 // Shuffle short phrases while keeping the lyric sequence together.
 const quizEggSingles=["战略家热身中","S16请为BLG加油ovo","We are Falcon","千言万语，感谢现役","枯阅99","马上走开，不要回来","地球不好混","无眼耳鼻舌身意","Having fun is winning","你也喜欢运动吗！"];
-const quizEggLyricGroups=[["波浪在海面上🌊","营火在岸边🔥","我又泪流满面🥹","你不在我身边😿","芒草在山巅 痛苦还留在眉间⛰️"],["被你牵着的手是不可能的画面","拥有你的时间已经不可能倒回"],["珍惜自行珍惜","无常留给我浪费力气"],["只怕幸福眼看完整","我的心却早已冰冷"],["何当共此西窗烛","却话巴山夜雨时"],["回想那一天 喧闹的喜宴","耳边响起的 究竟是序曲或完结篇"],["已经十几年没下雪的上海","突然飘雪"]];
+const quizEggLyricGroups=[["波浪在海面上🌊","营火在岸边🔥","我又泪流满面🥹","你不在我身边😿","芒草在山巅 痛苦还留在眉间⛰️"],["只怕幸福眼看完整","我的心却早已冰冷"]];
 let quizEggSession=null,quizEggDeck=[];
 function getQuizEasterEgg(questionIndex){
   if(quizEggSession!==session){quizEggSession=session;quizEggDeck=[];}
@@ -480,9 +519,126 @@ function getQuizEasterEgg(questionIndex){
   return quizEggDeck[questionIndex];
 }
 
+const quizMotionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');
+const quizEffectTimers=new Set();
+let lastLyricSession=null,lastLyricIndex=-1;
+function afterQuizEffect(callback,delay){
+  const timer=setTimeout(()=>{quizEffectTimers.delete(timer);callback();},delay);
+  quizEffectTimers.add(timer);
+}
+function clearQuizEffects(){
+  clearInteractiveQuizEffects();
+  quizEffectTimers.forEach(clearTimeout);quizEffectTimers.clear();
+  document.querySelectorAll('.star-spark,.quiz-confetti').forEach(el=>el.remove());
+  document.getElementById('starBtn').classList.remove('star-pop');
+  document.getElementById('quizProgress').classList.remove('egg-wave');
+  document.getElementById('quizEasterEgg').classList.remove('egg-fire');
+}
+function sparkleStar(){
+  const button=document.getElementById('starBtn');
+  button.classList.remove('star-pop');
+  button.querySelectorAll('.star-spark').forEach(el=>el.remove());
+  if(quizMotionPreference.matches||!button.classList.contains('on'))return;
+  void button.offsetWidth;button.classList.add('star-pop');
+  const sparks=[];
+  for(let i=0;i<6;i++){
+    const spark=document.createElement('span');spark.className='star-spark';spark.setAttribute('aria-hidden','true');
+    spark.style.setProperty('--spark-x',Math.cos(i*Math.PI/3)*23+'px');
+    spark.style.setProperty('--spark-y',Math.sin(i*Math.PI/3)*23+'px');
+    button.appendChild(spark);sparks.push(spark);
+  }
+  afterQuizEffect(()=>{sparks.forEach(el=>el.remove());button.classList.remove('star-pop');},700);
+}
+function animateLyric(phrase){
+  if(lastLyricSession===session&&lastLyricIndex===idx)return;
+  lastLyricSession=session;lastLyricIndex=idx;clearQuizEffects();
+  if(quizMotionPreference.matches)return;
+  const target=phrase==='波浪在海面上🌊'?document.getElementById('quizProgress'):phrase==='营火在岸边🔥'?document.getElementById('quizEasterEgg'):null;
+  if(!target)return;
+  const effect=phrase==='波浪在海面上🌊'?'egg-wave':'egg-fire';
+  target.classList.add(effect);afterQuizEffect(()=>target.classList.remove(effect),2500);
+}
+function celebrateQuiz(perfect){
+  if(quizMotionPreference.matches)return;
+  document.querySelectorAll('.quiz-confetti').forEach(el=>el.remove());
+  const layer=document.createElement('div');layer.className='quiz-confetti';layer.setAttribute('aria-hidden','true');
+  const colors=perfect?['#e9b949','#ffe59a','#cf9838']:['#8c82f3','#72cfc1','#f4c66a','#ee9bb5'];
+  for(let i=0;i<24;i++){
+    const paper=document.createElement('i');paper.style[i%2?'right':'left']=(5+Math.random()*17)+'px';
+    paper.style.setProperty('--paper-color',colors[i%colors.length]);
+    paper.style.setProperty('--paper-time',(1400+Math.random()*500)+'ms');
+    paper.style.setProperty('--paper-delay',Math.random()*250+'ms');
+    paper.style.setProperty('--paper-turn',(Math.random()*540-270)+'deg');layer.appendChild(paper);
+  }
+  document.body.appendChild(layer);afterQuizEffect(()=>layer.remove(),2400);
+}
+quizMotionPreference.addEventListener('change',()=>{if(quizMotionPreference.matches)clearQuizEffects();});
+
+function quizCatSvg(){return '<svg viewBox="0 0 24 18" aria-hidden="true" shape-rendering="crispEdges"><path fill="#f4c77c" d="M4 2h4v3h8V2h4v11h-2v3h-4v-2h-4v2H6v-3H4z"/><path fill="#25304b" d="M7 7h2v2H7zm8 0h2v2h-2zm-4 4h2v2h-2z"/><path fill="#efa0a5" d="M5 3h2v2H5zm12 0h2v2h-2z"/></svg>';}
+function peekQuizCat(){
+  const book=document.querySelector('.brand-icon');
+  book.querySelectorAll('.book-cat').forEach(el=>el.remove());book.classList.remove('book-peek');
+  const cat=document.createElement('span');cat.className='book-cat';cat.setAttribute('aria-hidden','true');cat.innerHTML=quizCatSvg();
+  void book.offsetWidth;book.appendChild(cat);book.classList.add('book-peek');
+  afterQuizEffect(()=>{cat.remove();book.classList.remove('book-peek');},2500);
+}
+let rainbowTimer=null;
+function rainbowQuizCombo(n){
+  const bar=document.getElementById('quizProgress');clearTimeout(rainbowTimer);bar.classList.remove('combo-rainbow');
+  if(n<5||quizMotionPreference.matches)return;
+  bar.style.setProperty('--combo-saturation',String(Math.min(1.6,1+(n-5)*.08)));
+  void bar.offsetWidth;bar.classList.add('combo-rainbow');
+  rainbowTimer=setTimeout(()=>bar.classList.remove('combo-rainbow'),1700);
+}
+let visitorSession=null,visitorIndex=-1,visitorSeen=false;
+function maybeQuizVisitor(phrase){
+  if(visitorSession!==session){visitorSession=session;visitorIndex=-1;visitorSeen=false;}
+  if(visitorIndex===idx)return;visitorIndex=idx;
+  if(idx===0||visitorSeen||quizMotionPreference.matches||quizEggLyricGroups.some(group=>group.includes(phrase))||Math.random()>=.05)return;
+  visitorSeen=true;
+  const bar=document.getElementById('quizProgress'),track=document.createElement('span');
+  track.className='cat-track';track.setAttribute('aria-hidden','true');track.innerHTML='<span class="cat-runner">'+quizCatSvg()+'</span>';
+  bar.classList.add('visitor-active');bar.appendChild(track);
+  afterQuizEffect(()=>{track.remove();bar.classList.remove('visitor-active');},2700);
+}
+function clearInteractiveQuizEffects(){
+  clearTimeout(rainbowTimer);
+  document.querySelectorAll('.cat-track,.book-cat').forEach(el=>el.remove());
+  document.querySelector('.brand-icon').classList.remove('book-peek');
+  document.getElementById('quizProgress').classList.remove('combo-rainbow','visitor-active');
+}
+function syncSkyEggButton(){
+  const button=document.querySelector('.header-state'),enabled=document.documentElement.hasAttribute('data-egg-sky');
+  button.setAttribute('aria-pressed',String(enabled));
+  button.setAttribute('aria-label',enabled?'MGT590，长按恢复原配色':'MGT590，长按开启星空配色');
+  button.title=enabled?'长按恢复原配色；键盘回车也可切换':'长按开启星空配色；键盘回车也可切换';
+}
+function toggleSkyEgg(){
+  document.documentElement.toggleAttribute('data-egg-sky');syncSkyEggButton();
+}
+function setupInteractiveEggs(){
+  const book=document.querySelector('.brand-icon');let taps=0,lastTap=0;
+  book.addEventListener('click',()=>{const now=performance.now();taps=now-lastTap<800?taps+1:1;lastTap=now;if(taps===3){taps=0;peekQuizCat();}});
+  const badge=document.querySelector('.header-state');let hold=null,origin=null;
+  const cancelHold=()=>{clearTimeout(hold);hold=null;origin=null;};
+  badge.addEventListener('pointerdown',event=>{
+    if(event.button!==0)return;cancelHold();origin={x:event.clientX,y:event.clientY,id:event.pointerId};
+    hold=setTimeout(()=>{hold=null;origin=null;toggleSkyEgg();},650);
+  });
+  window.addEventListener('pointermove',event=>{if(origin&&event.pointerId===origin.id&&Math.hypot(event.clientX-origin.x,event.clientY-origin.y)>10)cancelHold();},{passive:true});
+  ['pointerup','pointercancel','blur'].forEach(name=>window.addEventListener(name,cancelHold));
+  window.addEventListener('scroll',cancelHold,{passive:true});
+  badge.addEventListener('contextmenu',event=>event.preventDefault());
+  badge.addEventListener('click',event=>{if(event.detail===0)toggleSkyEgg();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.documentElement.hasAttribute('data-egg-sky')){document.documentElement.removeAttribute('data-egg-sky');syncSkyEggButton();}});
+  syncSkyEggButton();
+}
+
 function renderQuestion(){
   const q=session[idx];
   document.getElementById("quizEasterEgg").textContent=getQuizEasterEgg(idx);
+  animateLyric(document.getElementById("quizEasterEgg").textContent);
+  maybeQuizVisitor(document.getElementById("quizEasterEgg").textContent);
   syncStarBtn();
   const body=document.getElementById('qBody');
   const chosen=answers[qid(q)];
@@ -533,6 +689,7 @@ function showResult(){
   let correct=0;
   session.forEach(q=>{ if(answers[qid(q)]===q.ans) correct++; });
   const pct=Math.round(correct/total*100);
+  celebrateQuiz(total>0&&correct===total);
   document.getElementById('pct').textContent=pct+'%';
   document.getElementById('resTitle').textContent = pct===100?'满分！Perfect!':(pct>=80?'很棒！Great job!':(pct>=60?'还不错 · Decent':'继续加油 · Keep practicing'));
   const ring=document.getElementById('ringV');
@@ -665,6 +822,7 @@ function clearWrong(){
 
 // ----- view -----
 function showView(v){
+  clearQuizEffects();
   document.getElementById('home').classList.toggle('hide',v!=='home');
   document.getElementById('quiz').classList.toggle('hide',v!=='quiz');
   document.getElementById('result').classList.toggle('hide',v!=='result');
@@ -774,6 +932,7 @@ document.querySelectorAll('[data-limit]').forEach(el=>el.onclick=()=>{
 });
 new MutationObserver(syncControlLabels).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
 syncOldCh2Switch();syncControlLabels();updateOverview();
+setupInteractiveEggs();
 
 </script>
 </body>
