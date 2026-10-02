@@ -467,13 +467,13 @@ function showFeedback(q,key,correct){
 }
 
 // Shuffle short phrases while keeping the lyric sequence together.
-const quizEggSingles=["战略家热身中","今天的护城河：知识","学习曲线正在上扬","给未来的自己加一点优势","小步积累，也是长期战略","这一题，投资自己","S16请为BLG加油ovo","We are Falcon","千言万语，感谢现役","枯阅99","马上走开，不要回来","地球不好混","无眼耳鼻舌身意","人间归离复归离","细雨浸了发","Having fun is winning","你也喜欢运动吗！"];
-const quizEggLyrics=["波浪在海面上🌊","营火在岸边🔥","我又泪流满面🥹","你不在我身边😿","芒草在山巅 痛苦还留在眉间⛰️"];
+const quizEggSingles=["战略家热身中","S16请为BLG加油ovo","We are Falcon","千言万语，感谢现役","枯阅99","马上走开，不要回来","地球不好混","无眼耳鼻舌身意","Having fun is winning","你也喜欢运动吗！"];
+const quizEggLyricGroups=[["波浪在海面上🌊","营火在岸边🔥","我又泪流满面🥹","你不在我身边😿","芒草在山巅 痛苦还留在眉间⛰️"],["被你牵着的手是不可能的画面","拥有你的时间已经不可能倒回"],["珍惜自行珍惜","无常留给我浪费力气"],["只怕幸福眼看完整","我的心却早已冰冷"],["何当共此西窗烛","却话巴山夜雨时"],["回想那一天 喧闹的喜宴","耳边响起的 究竟是序曲或完结篇"],["已经十几年没下雪的上海","突然飘雪"]];
 let quizEggSession=null,quizEggDeck=[];
 function getQuizEasterEgg(questionIndex){
   if(quizEggSession!==session){quizEggSession=session;quizEggDeck=[];}
   while(quizEggDeck.length<=questionIndex){
-    const groups=[...quizEggSingles,quizEggLyrics];
+    const groups=[...quizEggSingles,...quizEggLyricGroups];
     for(let i=groups.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[groups[i],groups[j]]=[groups[j],groups[i]];}
     quizEggDeck.push(...groups.flat());
   }
