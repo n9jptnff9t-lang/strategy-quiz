@@ -80,7 +80,7 @@ html[data-theme=sepia]{--bg:#f3eee3;--card:#fffcf4;--ink:#39372f;--muted:#7b7565
 #quizProgress.egg-wave:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(115deg,transparent 0 12px,#77d5ed 18px,transparent 26px 44px);background-size:88px 100%;animation:egg-wave 2.4s ease-in-out both}
 @keyframes egg-wave{0%{opacity:0;background-position:0 0}20%,75%{opacity:.9}100%{opacity:0;background-position:176px 0}}
 #quizEasterEgg{position:relative;width:fit-content}
-#quizEasterEgg.egg-fire:after{content:"";position:absolute;right:-18px;top:4px;width:9px;height:13px;background:linear-gradient(25deg,#ffd36b 15%,#ff983d 55%,#e95238);border-radius:65% 5% 60% 45%;transform-origin:center bottom;pointer-events:none;animation:egg-fire .4s ease-in-out 6 alternate}
+#quizProgress.egg-fire:after{content:"";position:absolute;right:-18px;top:4px;width:9px;height:13px;background:linear-gradient(25deg,#ffd36b 15%,#ff983d 55%,#e95238);border-radius:65% 5% 60% 45%;transform-origin:center bottom;pointer-events:none;animation:egg-fire .4s ease-in-out 6 alternate}
 @keyframes egg-fire{from{transform:rotate(-12deg) scale(.85);opacity:.65}to{transform:rotate(8deg) scale(1.05);opacity:1}}
 .quiz-confetti{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:80}
 .quiz-confetti i{position:absolute;top:5%;width:5px;height:9px;border-radius:1px;background:var(--paper-color);opacity:0;animation:quiz-paper var(--paper-time) ease-out var(--paper-delay) both}
@@ -108,6 +108,11 @@ html[data-egg-sky] body{background-image:radial-gradient(circle at 18px 24px,#d3
 html[data-egg-sky] .header-state{color:#f1d58e}
 @media(prefers-reduced-motion:reduce){.book-peek>svg:first-child,.book-cat{animation:none!important}.book-cat{opacity:1}.cat-track{display:none!important}#quizProgress.combo-rainbow .progress{animation:none!important}}
 
+
+/* Hide rotating copy while retaining the visual and interactive eggs. */
+#quizEasterEgg{display:none!important}.quiz-head{justify-content:flex-end}
+#quizProgress.egg-fire{overflow:visible}#quizProgress.egg-fire:after{top:-15px;right:8px}
+@media(max-width:680px){.quiz-head{min-height:0;margin:0}}
 </style>
 </head>
 <body data-view="home" data-tab="practice">
@@ -171,7 +176,7 @@ html[data-egg-sky] .header-state{color:#f1d58e}
     </div>
     <section id="quiz" class="hide" aria-label="正在答题">
       <div id="comboBadge" class="combo" role="status">连击</div>
-      <div class="quiz-head"><div class="quiz-title" id="quizEasterEgg">战略家热身中</div><button type="button" class="btn ghost" id="quitBtn">退出练习</button></div>
+      <div class="quiz-head"><div class="quiz-title" id="quizEasterEgg" hidden></div><button type="button" class="btn ghost" id="quitBtn">退出练习</button></div>
       <div class="quiz-topline"><div class="quiz-badges"><span id="qCounter" class="pill">1 / 20</span><span id="chTag" class="pill gray">Ch 11</span><span id="scoreLive" class="pill gray">答对 0</span></div><div class="question-tools"><button type="button" id="starBtn" class="star-btn" title="收藏本题" aria-label="收藏本题" aria-pressed="false">☆</button><button type="button" id="zhSwitch" class="switch on zh-switch" role="switch" aria-checked="true" aria-label="作答后显示中文"><span class="sw-text">中文翻译 · CN</span><span class="sw-track"><span class="sw-knob"></span></span></button></div></div>
       <div class="progress-wrap" role="progressbar" id="quizProgress" aria-label="本轮答题进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pbar" class="progress"></div></div>
       <div class="qcard"><div class="question-label">SINGLE CHOICE · 单项选择</div><div id="qBody"></div><div id="feedback" class="feedback" role="status" aria-live="polite"></div><div class="quiz-footer"><small id="answerHint">选择一个选项<br>查看答案与反馈</small><button type="button" id="nextBtn" class="btn primary" disabled>下一题 →</button></div></div>
@@ -532,7 +537,7 @@ function clearQuizEffects(){
   document.querySelectorAll('.star-spark,.quiz-confetti').forEach(el=>el.remove());
   document.getElementById('starBtn').classList.remove('star-pop');
   document.getElementById('quizProgress').classList.remove('egg-wave');
-  document.getElementById('quizEasterEgg').classList.remove('egg-fire');
+  document.getElementById('quizProgress').classList.remove('egg-fire');
 }
 function sparkleStar(){
   const button=document.getElementById('starBtn');
@@ -553,7 +558,7 @@ function animateLyric(phrase){
   if(lastLyricSession===session&&lastLyricIndex===idx)return;
   lastLyricSession=session;lastLyricIndex=idx;clearQuizEffects();
   if(quizMotionPreference.matches)return;
-  const target=phrase==='波浪在海面上🌊'?document.getElementById('quizProgress'):phrase==='营火在岸边🔥'?document.getElementById('quizEasterEgg'):null;
+  const target=phrase==='波浪在海面上🌊'?document.getElementById('quizProgress'):phrase==='营火在岸边🔥'?document.getElementById('quizProgress'):null;
   if(!target)return;
   const effect=phrase==='波浪在海面上🌊'?'egg-wave':'egg-fire';
   target.classList.add(effect);afterQuizEffect(()=>target.classList.remove(effect),2500);
@@ -636,9 +641,9 @@ function setupInteractiveEggs(){
 
 function renderQuestion(){
   const q=session[idx];
-  document.getElementById("quizEasterEgg").textContent=getQuizEasterEgg(idx);
-  animateLyric(document.getElementById("quizEasterEgg").textContent);
-  maybeQuizVisitor(document.getElementById("quizEasterEgg").textContent);
+  const visualCue=getQuizEasterEgg(idx);
+  animateLyric(visualCue);
+  maybeQuizVisitor(visualCue);
   syncStarBtn();
   const body=document.getElementById('qBody');
   const chosen=answers[qid(q)];
